@@ -1,0 +1,25 @@
+.navigation {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    padding: 1.5rem;
+    justify-content: space-between;
+    
+    align-content: center;
+    align-items: center;
+}
+.navigation a{
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 5vh;
+    padding: 1rem;
+}
+a {
+    font-family: 'Archivo';
+}
+h1{
+    font-family: 'Bebas Neue';
+    font-size: 5rem;
+}
