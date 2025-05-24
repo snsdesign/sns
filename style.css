@@ -15,7 +15,7 @@
     color: #ffffff;
     font-size: 4rem;
     color: #ffffff;
-    padding-top: 30px;
+    padding-top: 40px;
 }
 .flex-container a:hover{
     transform: scale(1.1); 
@@ -28,6 +28,34 @@ h1{
     font-family: 'Bebas Neue';
     font-size: 5rem;
 }
+p{
+    font-family: 'Archivo';
+    font-size: 2.5rem;
+}
 main{
     padding: 2rem;
+    padding-top: 1rem;
+    padding-left: 0.5rem;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 1100px;
+    background-image: url(platenspeler.mp4);
+    background-size: cover;
+    background-position: 35% 10%;
+    padding: 2%;
 }
+main h1{
+    color: #ffffff;
+    font-size: 10rem;
+}
+footer{
+    background-color: black;
+    color: #ffffff;
+    padding: 2rem;
+}
+#rights{
+    text-align: center;
+}
+
