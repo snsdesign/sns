@@ -4,6 +4,7 @@
     justify-content: space-between; 
     justify-items: center;
     padding: 1.5rem;
+    border-bottom: #ffd600 solid 10px;
 }
 .flex-container{
     display: flex;
@@ -41,19 +42,18 @@ main{
     flex-direction: row;
     justify-content: flex-start;
     height: 1100px;
-    background-image: url(platenspeler.mp4);
-    background-size: cover;
-    background-position: 35% 10%;
     padding: 2%;
 }
 main h1{
-    color: #ffffff;
-    font-size: 10rem;
+    color: black;
+    font-size: 8rem;
 }
 footer{
     background-color: black;
     color: #ffffff;
     padding: 2rem;
+    border-top: #ffd600 solid 10px;
+
 }
 #rights{
     text-align: center;
@@ -66,7 +66,9 @@ footer{
     height: fit-content;
     gap: 2rem;
     text-align: center;
-    margin-bottom: 2.5rem;
+    border: #ffd600 solid 10px;
+    border-radius: 2rem;
+    margin: 3rem;
 }
 .about-me img{
     border-radius: 5%;
@@ -90,7 +92,9 @@ display: flex;
     text-align: center;
     background-color: black;
     color: #ffffff;
-    margin: 0 0;
+    border: #ffd600 solid 10px;
+    border-radius: 2rem;
+    margin: 3rem;
 }
 .tools img{
     border-radius: 5%;
@@ -102,8 +106,79 @@ display: flex;
     height: fit-content;
     gap: 2rem;
     text-align: center;
-    margin: 0 0;
+    border: #ffd600 solid 10px;
+    border-radius: 2rem;
+    margin: 3rem;
 }
 .inspiration img{
     border-radius: 5%;
+}
+.languages{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    height: fit-content;
+    gap: 2rem;
+    text-align: center;
+    border: #ffd600 solid 10px;
+    border-radius: 2rem;
+    margin: 3rem;    background-color: black;
+    color: #ffffff;
+}
+.languages img{
+    border-radius: 5%;
+}
+.work{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    height: fit-content;
+    gap: 2rem;
+    text-align: center;
+    border: #ffd600 solid 10px;
+    border-radius: 2rem;
+    margin: 3rem;
+}
+.work img{
+    border-radius: 5%;
+}
+.hero{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+.hero-section{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    height: 65vh;
+    border: #ffd600 solid 10px;
+    border-radius: 2rem;
+    margin: 3rem;
+}
+.hero p{
+    width: 60vw;
+}
+.buttons a{
+    display: flex;
+    flex-direction: row;
+    background-color: #ffd600;
+    text-decoration: none;
+    color: black;
+    border-radius: 2rem;
+    gap: 2rem;
+    width: 8vw;
+    margin: 2rem;
+    padding: 1.5rem;
+    margin-left: 0  ;
+    text-align: center;
+    font-family: 'Bebas Neue';
+    font-size: 2.5rem;
+}
+.buttons a:hover{
+    color: #ffffff;
+}
+.navigation img:hover{
+    transform: scale(1.1); 
+    transition: transform 0.3s ease;
 }
