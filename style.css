@@ -182,7 +182,7 @@ display: flex;
     transform: scale(1.1); 
     transition: transform 0.3s ease;
 }
-@media screen and (max-width: 768px){
+@media screen and (min-width: 768px){
     h1{
         font-size: 2rem;
     }
