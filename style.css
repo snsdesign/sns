@@ -182,7 +182,7 @@ display: flex;
     transform: scale(1.1); 
     transition: transform 0.3s ease;
 }
-@media only screen 
+@media screen and (max-width: 320px) { 
   and (min-device-width: 320px) 
   and (max-device-width: 480px) 
   and (orientation: portrait) 
