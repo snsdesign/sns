@@ -182,7 +182,11 @@ display: flex;
     transform: scale(1.1); 
     transition: transform 0.3s ease;
 }
-@media screen and (max-width: 320px) { 
+@media only screen and (max-device-width: 768px) {
+    html{
+        width: 100%;
+        max-width: 768px;
+    }
     h1{
         font-size: 2rem;
     }
