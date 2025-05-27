@@ -182,3 +182,69 @@ display: flex;
     transform: scale(1.1); 
     transition: transform 0.3s ease;
 }
+@media screen and (max-width: 768px){
+    h1{
+        font-size: 2rem;
+    }
+    p{
+        font-size: 1.5rem;
+    }
+    .hero{
+        width: 768px;
+    }
+    .flex-container a{
+        text-decoration: none;
+        font-size: 2.5rem;
+        padding-top: 40px;
+    }
+    .hero-section img{
+       height: 15vh;
+    }
+    .buttons a{
+        width: 15vw;
+        font-size: 1.5rem;
+    }
+    .about-me{
+        width: 90vw;
+    }
+    .about-me h1{
+        font-size: 3rem;
+    }
+    .tools h1{
+        font-size: 3rem;
+    }
+    .inspiration h1{
+        font-size: 3rem;
+    }
+    .languages h1{
+        font-size: 3rem;
+    }
+    .work h1{
+        font-size: 3rem;
+    }
+    .about-me img{
+    height: auto;
+    width: 40vw; 
+    }
+    .tools img{
+    height: auto;
+    width: 40vw; 
+    }
+    .inspiration img{
+    height: auto;
+    width: 40vw; 
+    }
+    .languages img{
+    height: auto;
+    width: 40vw; 
+    }
+    .work img{
+    height: auto;
+    width: 40vw; 
+    }
+    #sieben{
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;                 /* space between image and text */
+    }
+}
