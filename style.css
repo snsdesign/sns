@@ -182,6 +182,54 @@ display: flex;
     transform: scale(1.1); 
     transition: transform 0.3s ease;
 }
+details.dropdown {
+    border: #ffd600 solid 10px;
+    border-radius: 2rem;
+    margin: 3rem;
+    padding: 1rem 2rem;
+    background-color: #fff; /* adjust for dark/light sections */
+    text-align: center;
+  }
+  details.dropdown .content {
+    display: grid;             /* allows smooth transition of rows */
+    grid-template-rows: 0fr;   /* collapsed */
+    transition: grid-template-rows 0.6s ease;
+  }
+  details.dropdown .content > * {
+    overflow: hidden;          /* prevent spilling during animation */
+  }
+
+/* When details is open */
+details.dropdown[open] .content {
+    grid-template-rows: 1fr;   /* expanded */
+}
+  details.dropdown summary {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    cursor: pointer;
+    list-style: none;
+    outline: none;
+    display: block;
+    position: relative;
+    user-select: none;
+    padding-right: 3rem; /* room for caret */
+  }
+  details.dropdown summary::-webkit-details-marker {
+    display: none; /* remove default arrow */
+  }
+  details.dropdown summary::after {
+    content: "▼";
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    font-size: 3rem;
+    line-height: 1;
+    transition: transform 0.45s ease;
+  }
+  
+  details.dropdown[open] summary::after {
+    transform: rotate(180deg);
+  }
 @media screen and (max-width: 768px){
     h1{
         font-size: 2rem;
@@ -247,5 +295,4 @@ display: flex;
     flex-direction: column;
     gap: 4rem;                 /* space between image and text */
     }
-
 }
