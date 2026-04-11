@@ -10,37 +10,161 @@
         <link rel="stylesheet" href="reset_plus.css">
         <link rel="stylesheet" href="style.css">
         <link href="css/style.css" rel="stylesheet" type="text/css" media="screen"  />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Bebas+Neue&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.typekit.net/hnq1rih.css">
     </head>
- <header>
-    <nav class="navigation">
-         <div class="flex-container">
-            <img src="logo.png" width="110px">
-            <a href="index.html">Home</a>
-            <a href="work.html">Projects</a>
-            <a href="about.html">About</a>
-        </div>
-    </header>
-    </nav>
-    <main class="hero-section">
-     <div class="hero">
-     <h1>Sieben Nopens</h1>
-     <p>I’m Sieben Nopens — a graphic & motion designer who blends simplicity with sharp detail. This site is more than just a portfolio — it’s a visual story of how I think, design, and create. Scroll down, click around, and see how I turn data, music, and motion into design that moves. Let’s make something real.</p>
-     <div class="buttons">
-        <a href="about.html">Read More</a>
-        <a href="work.html">Projects</a>
-     </div>
-    </div>
-     <img src="avatar Background Removed.png" alt="mijn eigen getekende avatar" width="auto" height="500vh">
-    </main>
-    <footer>
-        <p>Contact</p>
-        <p>e-mail: siebennopens@gmail.com</p>
-        <p>tel. 0473497204</p>
-        <p id="rights">&copy; 2025 snsdesign. All rights reserved.</p>
-    </footer>
-</html>
 
+    
+<body>
+    
+  <header>
+    <ul id="logo">
+      <a href="index.html"><img src="images/logo white.png" alt=""></a>
+    </ul>
+
+
+      <ul class="nav-links">
+        <li class="nav-item"><a href="index.html">home</a></li>
+
+        <li class="nav-item">
+          <a href="pages/Projects.html">projects</a>
+        </li>
+
+
+        <li class="nav-item">
+          <a href="pages/about.html">about</a>
+        </li>
+
+        <li class="nav-item"><a href="../Pages/Contact.html">contact</a></li>
+      </ul>
+
+      <form class="site-search" action="#" method="get" autocomplete="off">
+        <input id="site-search-input" type="search" name="q" placeholder="search..." aria-label="Zoek">
+      </form>
+
+      <div class="nav-item dropdown language-switch">
+  <a id="taal" href="#">EN</a>
+
+
+  <ul class="dropdown-menu">
+    <li><a href="../Pages/EN/index EN.html">NL</a></li>
+    <li><a href="../Pages/FR/index FR.html">FR</a></li>
+  </ul>
+</div>
+     </header>
+
+<section class="hero">
+    <div class="hero-content">
+        <p class="hero-kicker">Graphic & Motion Designer</p>
+        <h1>Clean visuals, motion that hits, and digital work with style.</h1>
+        <p class="hero-text">
+            I’m Sieben, a graphic and digital media student focused on motion design, branding,
+            editing and visual storytelling.
+        </p>
+        <div class="hero-buttons">
+            <a href="pages/Projects.html" class="btn-primary">View Projects</a>
+            <a href="pages/about.html" class="btn-secondary">About Me</a>
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <img src="images/logo white.png" alt="SNS Design logo">
+    </div>
+</section>
+
+<section class="showreel">
+    <div class="section-heading">
+        <p class="section-kicker">Motion Showreel</p>
+        <h2></h2>
+        <p>
+        </p>
+    </div>
+
+    <div class="showreel-video">
+        <video controls poster="images/logo white.png">
+            <source src="video/showreel.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</section>
+
+<section class="featured-projects">
+    <div class="section-heading">
+        <p class="section-kicker">Featured Projects</p>
+        <h2></h2>
+    </div>
+
+    <div class="projects-grid">
+        <article class="project-card">
+            <img src="images/AR.png" alt="Preview of AR Sports Watch project">
+            <div class="project-info">
+                <h3>AR Sports Watch</h3>
+                <p>FUI concept, compositing and holographic motion design.</p>
+                <a href="pages/Projects.html">View Project</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <img src="images/sneaker.png" alt="Preview of Nike Air Force 1 project">
+            <div class="project-info">
+                <h3>Nike Air Force 1</h3>
+                <p>Fast-paced product video focused on rhythm, detail and brand energy.</p>
+                <a href="pages/Projects.html">View Project</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <img src="images/car review.png" alt="Preview of Loop Earplugs project">
+            <div class="project-info">
+                <h3>Affiliate car review</h3>
+                <p>3D visuals and motion-driven campaign direction built around sound and event culture.</p>
+                <a href="pages/Projects.html">View Project</a>
+            </div>
+        </article>
+    </div>
+
+<a class="btn-primary" id="btn-center" href="">View all projects</a>
+
+</section>
+
+<section class="tools">
+    <div class="section-heading">
+        <p class="section-kicker">Tools</p>
+        <h2>Software I work with</h2>
+    </div>
+
+    <div class="tools-grid">
+        <div class="tool-item"><p>After Effects</p></div>
+        <div class="tool-item"><p>Premiere Pro</p></div>
+        <div class="tool-item"><p>Photoshop</p></div>
+        <div class="tool-item"><p>DaVinci Resolve</p></div>
+        <div class="tool-item"><p>Cinema 4D</p></div>
+        <div class="tool-item"><p>InDesign</p></div>
+        <div class="tool-item"><p>HTML</p></div>
+        <div class="tool-item"><p>CSS</p></div>
+    </div>
+</section>
+
+<section class="hero">
+    <div class="hero-content">
+        <p class="hero-kicker">Let’s work</p>
+        <h1>Looking for a designer who keeps it clean, fast and visual?</h1>
+        <p class="hero-text">
+            Check out my work or get in touch for collaborations, freelance opportunities or creative projects.
+
+        </p>
+        <div class="hero-buttons">
+            <a href="pages/Projects.html" class="btn-primary">View Projects</a>
+            <a href="../Pages/Contact.html" class="btn-secondary">Contact Me</a>
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <img src="images/logo white.png" alt="SNS Design logo">
+    </div>
+</section>
+
+<script src="./scroll-fade.js"></script>
+
+</body>
+</html>
 
