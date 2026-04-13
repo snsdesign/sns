@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>snsdesign</title>
+        <title>Home │ snsdesign</title>
         <style>
             /*Hier kan je inline werken - soms als je snel wil testen is dat handig*/
         </style>
@@ -16,41 +16,46 @@
     
 <body>
     
-  <header>
-    <ul id="logo">
-      <a href="index.html"><img src="images/logo white.png" alt=""></a>
-    </ul>
-
-
-      <ul class="nav-links">
-        <li class="nav-item"><a href="index.html">home</a></li>
-
-        <li class="nav-item">
-          <a href="pages/Projects.html">projects</a>
-        </li>
-
-
-        <li class="nav-item">
-          <a href="pages/about.html">about</a>
-        </li>
-
-        <li class="nav-item"><a href="../Pages/Contact.html">contact</a></li>
+    <header>
+        <ul id="logo">
+          <a href="../index.html"><img src="../images/logo white.png" alt=""></a>
+        </ul>
+    
+    
+          <ul class="nav-links">
+            <li class="nav-item"><a href="../index.html">home</a></li>
+    
+            <ul class="nav-links">
+              <li class="nav-item dropdown">
+                <a href="../pages/Projects.html">projects</a>
+      
+                <ul class="dropdown-menu">
+                  <li><a href="../pages/Motion.html">motion</a></li>
+                  <li><a href="../pages/branding.html">branding</a></li>
+                </ul>
+              </li>
+    
+            <li class="nav-item">
+              <a href="../pages/about.html">about</a>
+            </li>
+    
+            <li class="nav-item"><a href="../Pages/Contact.html">contact</a></li>
+          </ul>
+    
+          <form class="site-search" action="#" method="get" autocomplete="off">
+            <input id="site-search-input" type="search" name="q" placeholder="search..." aria-label="Zoek">
+          </form>
+    
+          <div class="nav-item dropdown language-switch">
+      <a id="taal" href="#">EN</a>
+    
+    
+      <ul class="dropdown-menu">
+        <li><a href="../Pages/EN/index EN.html">NL</a></li>
+        <li><a href="../Pages/FR/index FR.html">FR</a></li>
       </ul>
-
-      <form class="site-search" action="#" method="get" autocomplete="off">
-        <input id="site-search-input" type="search" name="q" placeholder="search..." aria-label="Zoek">
-      </form>
-
-      <div class="nav-item dropdown language-switch">
-  <a id="taal" href="#">EN</a>
-
-
-  <ul class="dropdown-menu">
-    <li><a href="../Pages/EN/index EN.html">NL</a></li>
-    <li><a href="../Pages/FR/index FR.html">FR</a></li>
-  </ul>
-</div>
-     </header>
+    </div>
+         </header>
 
 <section class="hero">
     <div class="hero-content">
@@ -99,7 +104,7 @@
             <div class="project-info">
                 <h3>AR Sports Watch</h3>
                 <p>FUI concept, compositing and holographic motion design.</p>
-                <a href="pages/Projects.html">View Project</a>
+                <a href="pages/Projects/AR.html">View Project</a>
             </div>
         </article>
 
@@ -108,7 +113,7 @@
             <div class="project-info">
                 <h3>Nike Air Force 1</h3>
                 <p>Fast-paced product video focused on rhythm, detail and brand energy.</p>
-                <a href="pages/Projects.html">View Project</a>
+                <a href="pages/Projects/sneaker.html">View Project</a>
             </div>
         </article>
 
@@ -117,34 +122,18 @@
             <div class="project-info">
                 <h3>Affiliate car review</h3>
                 <p>3D visuals and motion-driven campaign direction built around sound and event culture.</p>
-                <a href="pages/Projects.html">View Project</a>
+                <a href="pages/Projects/car review.html">View Project</a>
             </div>
         </article>
     </div>
 
-<a class="btn-primary" id="btn-center" href="">View all projects</a>
+<a class="btn-primary" id="btn-center" href="pages/Projects.html">View all projects</a>
 
 </section>
 
-<section class="tools">
-    <div class="section-heading">
-        <p class="section-kicker">Tools</p>
-        <h2>Software I work with</h2>
-    </div>
 
-    <div class="tools-grid">
-        <div class="tool-item"><p>After Effects</p></div>
-        <div class="tool-item"><p>Premiere Pro</p></div>
-        <div class="tool-item"><p>Photoshop</p></div>
-        <div class="tool-item"><p>DaVinci Resolve</p></div>
-        <div class="tool-item"><p>Cinema 4D</p></div>
-        <div class="tool-item"><p>InDesign</p></div>
-        <div class="tool-item"><p>HTML</p></div>
-        <div class="tool-item"><p>CSS</p></div>
-    </div>
-</section>
 
-<section class="hero">
+<section class="hero" id="home">
     <div class="hero-content">
         <p class="hero-kicker">Let’s work</p>
         <h1>Looking for a designer who keeps it clean, fast and visual?</h1>
@@ -162,6 +151,10 @@
         <img src="images/logo white.png" alt="SNS Design logo">
     </div>
 </section>
+
+<footer>
+     © snsdesign 2026. all rights reserved.
+</footer>
 
 <script src="./scroll-fade.js"></script>
 
