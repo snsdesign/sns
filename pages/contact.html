@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>snsdesign</title>
+        <title>Contact │ snsdesign</title>
         <style>
             /*Hier kan je inline werken - soms als je snel wil testen is dat handig*/
         </style>
@@ -24,10 +24,15 @@
       <ul class="nav-links">
         <li class="nav-item"><a href="../index.html">home</a></li>
 
-        <li class="nav-item">
-          <a href="../pages/Projects.html">projects</a>
-        </li>
-
+        <ul class="nav-links">
+          <li class="nav-item dropdown">
+            <a href="../pages/Projects.html">projects</a>
+  
+            <ul class="dropdown-menu">
+              <li><a href="../pages/Motion.html">motion</a></li>
+              <li><a href="../pages/branding.html">branding</a></li>
+            </ul>
+          </li>
 
         <li class="nav-item">
           <a href="../pages/about.html">about</a>
@@ -51,12 +56,170 @@
 </div>
      </header>
         
-<section>
-    
+<section class="hero">
+  <div class="hero-content">
+      <p class="hero-kicker">Contact</p>
+      <h1>Let’s create something strong, clean and visual.</h1>
+      <p class="hero-text">
+        Interested in working together, collaborating on a project or just getting in touch?
+            Feel free to reach out. I’m open to freelance work, creative collaborations and new opportunities.
+      </p>
+  </div>
 
-
+  <div class="hero-visual">
+      <img src="../images/logo white.png" alt="SNS Design logo">
+  </div>
 </section>
+
+<section class="contact-grid">
+    <article class="contact-card contact-info-card">
+        <div class="contact-card-content">
+            <p class="section-kicker">Get in touch</p>
+            <h2>Contact details</h2>
+            <ul class="contact-list">
+    <li>
+        <span>Email</span>
+        <a href="mailto:contact@snsdesign.org">contact@snsdesign.org</a>
+    </li>
+    <li>
+        <span>Phone</span>
+        <p><a href="tel:+32473497204">+32 473 49 72 04</a></p>
+    </li>
+    <li>
+        <span>Message</span>
+        <a href="sms:+32473497204">Send message</a>
+    </li>
+    <li>
+        <span>Availability</span>
+        <p>Open for freelance, collaborations and creative opportunities</p>
+    </li>
+</ul>
+        </div>
+    </article>
+
+    <article class="contact-card contact-info-card">
+        <div class="contact-card-content">
+            <p class="section-kicker">Online</p>
+            <h2>Where to find me</h2>
+            <ul class="contact-list">
+    <li>
+        <span>LinkedIn</span>
+        <a href="https://www.linkedin.com/in/sieben-nopens-a47526329/" target="_blank">Sieben Nopens</a>
+    </li>
+    <li>
+        <span>Instagram</span>
+        <a href="https://www.instagram.com/sieben.ns14/" target="_blank">sieben.ns14</a>
+    </li>
+    <li>
+        <span>YouTube</span>
+        <a href="https://www.youtube.com/c/SIEP25" target="_blank">snsdesign</a>
+    </li>
+</ul>
+        </div>
+    </article>
+</section>
+
+<section class="contact-form-section">
+    <div class="contact-form-card">
+        <div class="section-heading">
+            <p class="section-kicker">E-Mail</p>
+            <h2>Send me an e-mail</h2>
+            <p>Use the form below to quickly get in touch.</p>
+        </div>
+
+        <form class="contact-form" id="contact-form" action="https://formspree.io/f/xvzdpzgn" method="POST">
+    <input type="hidden" name="_subject" value="New portfolio message for contact@snsdesign.org">
+    <input type="hidden" name="_captcha" value="false">
+            <div class="contact-form-row">
+                <div class="contact-field">
+                    <label for="contact-name">Name</label>
+                    <input type="text" id="contact-name" name="name" placeholder="Your name" required>
+                </div>
+
+                <div class="contact-field">
+                    <label for="contact-email">E-mail</label>
+                    <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
+                </div>
+            </div>
+
+            <div class="contact-field">
+                <label for="contact-subject">Subject</label>
+                <input type="text" id="contact-subject" name="subject" placeholder="What is this about?" required>
+            </div>
+
+            <div class="contact-field">
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" name="message" rows="6" placeholder="Tell me a bit about your project or question..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary" id="contact-submit">Send e-mail</button>
+        </form>
+        <div class="contact-success" id="contact-success" hidden>
+    <p class="section-kicker">Mail sent</p>
+    <h2>Thanks, I got your mail.</h2>
+    <p>I’ll get back to you as soon as possible.</p>
+    <button type="button" class="btn-secondary" id="contact-reset">Send another e-mail</button>
+</div>
+    </div>
+</section>
+
+<footer>
+  © snsdesign 2026. all rights reserved.
+</footer>
+
+<script src="../scroll-fade.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("contact-form");
+      const successBox = document.getElementById("contact-success");
+      const submitButton = document.getElementById("contact-submit");
+      const resetButton = document.getElementById("contact-reset");
+  
+      if (!form || !successBox || !submitButton) return;
+  
+      // start state
+      successBox.hidden = true;
+      form.hidden = false;
+  
+      form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+  
+          submitButton.disabled = true;
+          submitButton.textContent = "Sending...";
+  
+          try {
+              const response = await fetch(form.action, {
+                  method: form.method,
+                  body: new FormData(form),
+                  headers: {
+                      Accept: "application/json"
+                  }
+              });
+  
+              if (response.ok) {
+                  form.reset();
+                  form.hidden = true;
+                  successBox.hidden = false;
+              } else {
+                  alert("Something went wrong. Try again.");
+              }
+          } catch (error) {
+              alert("Something went wrong. Try again.");
+          } finally {
+              submitButton.disabled = false;
+              submitButton.textContent = "Send Message";
+          }
+      });
+  
+      if (resetButton) {
+          resetButton.addEventListener("click", () => {
+              successBox.hidden = true;
+              form.hidden = false;
+              form.reset();
+          });
+      }
+  });
+  </script>
 
 </body>
 </html>
-
