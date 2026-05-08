@@ -362,8 +362,8 @@ header > img:first-child{
     justify-content: center;
     align-items: center;
     padding: 2rem 7vw 0 7vw;
+    margin-bottom: 3vh;
     box-sizing: border-box;
-    margin-left: 29vw;
 }
 
 .back-button-row #btn-center{
