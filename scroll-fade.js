@@ -79,3 +79,65 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+/* Mobile floating liquid glass menu */
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.querySelector(".mobile-menu-toggle")) return;
+
+    const toggle = document.createElement("button");
+    toggle.className = "mobile-menu-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-label", "Open menu");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.innerHTML = "<span></span>";
+
+    const panel = document.createElement("nav");
+    panel.className = "mobile-menu-panel";
+    panel.setAttribute("aria-label", "Mobile menu");
+
+    const path = window.location.pathname;
+const isProjectDetailPage = path.includes("/pages/Projects/");
+const isPagesPage = path.includes("/pages/");
+const basePath = isProjectDetailPage ? "../../" : isPagesPage ? "../" : "";
+
+const links = [
+    ["home", `${basePath}index.html`],
+    ["projects", `${basePath}pages/Projects.html`],
+    ["motion", `${basePath}pages/Motion.html`],
+    ["branding", `${basePath}pages/branding.html`],
+    ["about", `${basePath}pages/about.html`],
+    ["contact", `${basePath}pages/contact.html`]
+];
+
+    links.forEach(([label, href]) => {
+        const a = document.createElement("a");
+        a.href = href;
+        a.textContent = label;
+        panel.appendChild(a);
+    });
+
+    const search = document.createElement("input");
+    search.className = "mobile-menu-search";
+    search.type = "search";
+    search.placeholder = "search...";
+    panel.appendChild(search);
+
+    document.body.appendChild(panel);
+    document.body.appendChild(toggle);
+
+    const closeMenu = () => {
+        toggle.classList.remove("is-open");
+        panel.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+    };
+
+    toggle.addEventListener("click", () => {
+        toggle.classList.toggle("is-open");
+        panel.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", panel.classList.contains("is-open"));
+    });
+
+    panel.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", closeMenu);
+    });
+});
