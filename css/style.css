@@ -1798,14 +1798,14 @@ footer span{
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 96px;
-        height: 96px;
+        width: 148px;
+        height: 148px;
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.18);
-        background: rgba(255,255,255,0.12);
-        backdrop-filter: blur(28px) saturate(180%);
-        -webkit-backdrop-filter: blur(28px) saturate(180%);
-        box-shadow: 0 14px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.14);
+        backdrop-filter: blur(34px) saturate(190%);
+        -webkit-backdrop-filter: blur(34px) saturate(190%);
+        box-shadow: 0 16px 42px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.14);
         cursor: pointer;
         padding: 0;
     }
@@ -1813,8 +1813,8 @@ footer span{
     .mobile-menu-toggle span{
         position: relative;
         display: block;
-        width: 32px;
-        height: 3px;
+        width: 56px;
+        height: 5px;
         border-radius: 999px;
         background: #ffffff;
         transition: background 0.25s ease;
@@ -1825,19 +1825,19 @@ footer span{
         content: "";
         position: absolute;
         left: 0;
-        width: 32px;
-        height: 3px;
+        width: 56px;
+        height: 5px;
         border-radius: 999px;
         background: #ffffff;
         transition: transform 0.25s ease, top 0.25s ease;
     }
 
     .mobile-menu-toggle span::before{
-        top: -11px;
+        top: -18px;
     }
 
     .mobile-menu-toggle span::after{
-        top: 11px;
+        top: 18px;
     }
 
     .mobile-menu-toggle.is-open span{
@@ -1857,18 +1857,18 @@ footer span{
     .mobile-menu-panel{
         position: fixed;
         right: 1.2rem;
-        bottom: 7rem;
+        bottom: 11rem;
         z-index: 2999;
         display: grid;
-        gap: 0.45rem;
-        width: min(300px, calc(100vw - 2.4rem));        
-        padding: 1rem;
-        border-radius: 28px;
-        border: 1px solid rgba(255,255,255,0.18);
-        background: rgba(255,255,255,0.12);
-        backdrop-filter: blur(32px) saturate(180%);
-        -webkit-backdrop-filter: blur(32px) saturate(180%);
-        box-shadow: 0 18px 50px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.12);
+        gap: 0.7rem;
+        width: min(360px, calc(100vw - 2.4rem));
+        padding: 1.25rem;
+        border-radius: 34px;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.14);
+        backdrop-filter: blur(38px) saturate(190%);
+        -webkit-backdrop-filter: blur(38px) saturate(190%);
+        box-shadow: 0 20px 56px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.14);
         opacity: 0;
         visibility: hidden;
         transform: translateY(18px) scale(0.96);
@@ -1884,15 +1884,18 @@ footer span{
 
     .mobile-menu-panel a{
         display: flex;
+        align-items: center;
         width: 100%;
-        padding: 1.05rem 1.15rem;
-        border-radius: 18px;
+        min-height: 56px;
+        padding: 1rem 1.2rem;
+        border-radius: 22px;
         color: #ffffff;
         text-decoration: none;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.055);
+        border: 1px solid rgba(255,255,255,0.09);
         box-sizing: border-box;
-        font-size: 2vh;
+        font-size: 1.45rem;
+        line-height: 1;
     }
 
     .mobile-menu-panel a:hover{
@@ -1901,12 +1904,13 @@ footer span{
 
     .mobile-menu-search{
         width: 100%;
+        min-height: 56px;
         border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 18px;
-        padding: 1.05rem 1.15rem;        
+        border-radius: 22px;
+        padding: 1rem 1.2rem;
         background: rgba(255,255,255,0.06);
         color: #ffffff;
-        font-size: 1.15rem;
+        font-size: 1.2rem;
         font-family: "lotus-eden", sans-serif;
         box-sizing: border-box;
     }
