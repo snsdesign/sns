@@ -1686,20 +1686,20 @@ footer span{
 
     .hero-kicker,
     .section-kicker{
-        font-size: 0.75rem;
+        font-size: 1.3rem;
         letter-spacing: 0.16em;
         margin-bottom: 0.75rem;
     }
 
     .hero h1{
-        font-size: clamp(2.35rem, 10vw, 3.25rem);
+        font-size: 5vh;
         line-height: 1.14;
         margin: 1rem 0 1.5rem 0;
         max-width: 100%;
     }
 
     .hero-text{
-        font-size: 1.15rem;
+        font-size: 1.8rem;
         line-height: 1.45;
         margin-bottom: 1rem;
     }
@@ -1713,7 +1713,7 @@ footer span{
     .hero-buttons .btn-primary,
     .hero-buttons .btn-secondary{
         padding: 0.7rem 1rem;
-        font-size: 0.8rem;
+        font-size: 2rem;
     }
 
     .showreel,
@@ -1750,11 +1750,15 @@ footer span{
     }
 
     .project-info h3{
-        font-size: 1.35rem;
+        font-size: 3vh;
     }
 
     .project-info p{
-        font-size: 0.95rem;
+        font-size: 1.5vh;
+    }
+
+    .project-info a{
+        font-size: 1.3vh;
     }
 
     .section-heading{
@@ -1776,6 +1780,7 @@ footer span{
     .cta-content{
         padding: 1.5rem;
     }
+
 }
 
 /* MOBILE FLOATING HAMBURGER MENU */
@@ -1910,7 +1915,7 @@ footer span{
         padding: 2rem 2.4rem;
         background: rgba(255,255,255,0.06);
         color: #ffffff;
-        font-size: 2.4rem;
+        font-size: 2.9rem;
         font-family: "lotus-eden", sans-serif;
         box-sizing: border-box;
     }
@@ -1944,11 +1949,9 @@ footer span{
 ========================= */
 @media (max-width: 1024px){
     p,
-    .hero-text,
     .projects-hero-text,
     .section-heading p,
     .cta-content p,
-    .project-info p,
     .category-card p,
     .about-card p,
     .contact-list p,
@@ -1958,12 +1961,13 @@ footer span{
         line-height: 1.6;
     }
 
+    h1{
+       font-size: 25px; 
+    }
+
     a,
-    .btn-primary,
-    .btn-secondary,
-    .project-info a,
     .contact-list a,
-    .contact-links a,
+    .contact-links a
 
     .mobile-menu-search{
         font-size: 1.15rem;
@@ -1976,7 +1980,6 @@ footer span{
     .projects-hero-text,
     .section-heading p,
     .cta-content p,
-    .project-info p,
     .category-card p,
     .about-card p,
     .contact-list p,
@@ -1986,10 +1989,11 @@ footer span{
         line-height: 1.58;
     }
 
+    h1{
+        font-size: 30px;
+    }
+
     a,
-    .btn-primary,
-    .btn-secondary,
-    .project-info a,
     .contact-list a,
     .contact-links a{
         font-size: 1rem;
