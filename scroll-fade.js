@@ -103,8 +103,6 @@ const basePath = isProjectDetailPage ? "../../" : isPagesPage ? "../" : "";
 const links = [
     ["home", `${basePath}index.html`],
     ["projects", `${basePath}pages/Projects.html`],
-    ["motion", `${basePath}pages/Motion.html`],
-    ["branding", `${basePath}pages/branding.html`],
     ["about", `${basePath}pages/about.html`],
     ["contact", `${basePath}pages/contact.html`]
 ];
