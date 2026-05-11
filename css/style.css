@@ -1798,8 +1798,8 @@ footer span{
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 82px;
-        height: 82px;
+        width: 96px;
+        height: 96px;
         border-radius: 999px;
         border: 1px solid rgba(255,255,255,0.18);
         background: rgba(255,255,255,0.12);
@@ -1857,11 +1857,11 @@ footer span{
     .mobile-menu-panel{
         position: fixed;
         right: 1.2rem;
-        bottom: 5.8rem;
+        bottom: 7rem;
         z-index: 2999;
         display: grid;
         gap: 0.45rem;
-        width: fit-content;
+        width: min(300px, calc(100vw - 2.4rem));        
         padding: 1rem;
         border-radius: 28px;
         border: 1px solid rgba(255,255,255,0.18);
@@ -1885,7 +1885,7 @@ footer span{
     .mobile-menu-panel a{
         display: flex;
         width: 100%;
-        padding: 0.95rem 1rem;
+        padding: 1.05rem 1.15rem;
         border-radius: 18px;
         color: #ffffff;
         text-decoration: none;
@@ -1900,13 +1900,13 @@ footer span{
     }
 
     .mobile-menu-search{
-        width: fit-content;
+        width: 100%;
         border: 1px solid rgba(255,255,255,0.12);
         border-radius: 18px;
-        padding: 0.95rem 1rem;
+        padding: 1.05rem 1.15rem;        
         background: rgba(255,255,255,0.06);
         color: #ffffff;
-        font-size: 1rem;
+        font-size: 1.15rem;
         font-family: "lotus-eden", sans-serif;
         box-sizing: border-box;
     }
