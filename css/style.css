@@ -370,9 +370,14 @@ header > img:first-child{
     margin: 0;
 }
 
-@media (max-width: 768px){
+@media (max-width: 1024px){
     .back-button-row{
         padding: 2rem 6vw 0 6vw;
+        font-size: 6vh;
+    }
+    #btn-center{
+        padding: 1.85rem 2.1rem;
+        font-size: 2vh;
     }
 }
 
@@ -1394,7 +1399,7 @@ header > img:first-child{
     }
 
     .hero-text{
-        font-size: 1.45rem;
+        font-size: 1.75rem;
         line-height: 1.5;
         margin-bottom: 0.5rem;
     }
@@ -1405,8 +1410,8 @@ header > img:first-child{
 
     .hero-buttons .btn-primary,
     .hero-buttons .btn-secondary{
-        padding: 0.85rem 1.1rem;
-        font-size: 0.95rem;
+        padding: 1.85rem 2.1rem;
+        font-size: 2vh;
     }
 
     .section-heading{
@@ -1447,6 +1452,7 @@ header > img:first-child{
 
     .project-info a{
         font-size: 1.05rem;
+        margin-top: 14vh;
     }
 
     .section-kicker,
@@ -1457,8 +1463,8 @@ header > img:first-child{
 
     .section-heading h2,
     .cta-content h2{
-        font-size: clamp(3rem, 11vw, 4.8rem);
-        line-height: 1.08;
+        font-size: 2.3rem;
+        line-height: 1.45;
     }
 
     .section-heading p,
@@ -1634,6 +1640,10 @@ footer span{
         box-sizing: border-box;
     }
 
+    .about-list{
+        font-size: 1.7vh;
+    }
+
     header img,
     #logo{
         height: 24px;
@@ -1699,21 +1709,13 @@ footer span{
     }
 
     .hero-text{
-        font-size: 1.8rem;
+        font-size: 2.3rem;
         line-height: 1.45;
         margin-bottom: 1rem;
     }
 
     .hero-buttons{
         gap: 0.6rem;
-    }
-
-    .btn-primary,
-    .btn-secondary,
-    .hero-buttons .btn-primary,
-    .hero-buttons .btn-secondary{
-        padding: 0.7rem 1rem;
-        font-size: 2rem;
     }
 
     .showreel,
@@ -1759,6 +1761,7 @@ footer span{
 
     .project-info a{
         font-size: 1.3vh;
+        margin-top: 4vh;
     }
 
     .section-heading{
@@ -1767,13 +1770,13 @@ footer span{
 
     .section-heading h2,
     .cta-content h2{
-        font-size: clamp(2.2rem, 10vw, 3.4rem);
-        line-height: 1.1;
+        font-size: 3.3rem;
+        line-height: 1.45;
     }
 
     .section-heading p,
     .cta-content p{
-        font-size: 1rem;
+        font-size: 1.8rem;
         line-height: 1.5;
     }
 
@@ -1940,7 +1943,7 @@ footer span{
     }
 
     .projects-hero-text{
-        font-size: 1.15rem;
+        font-size: 1.75rem;
         line-height: 1.5;
     }
 }
@@ -1949,15 +1952,13 @@ footer span{
 ========================= */
 @media (max-width: 1024px){
     p,
-    .projects-hero-text,
     .section-heading p,
-    .cta-content p,
     .category-card p,
     .about-card p,
     .contact-list p,
     .contact-intro,
     .about-intro{
-        font-size: 1.25rem;
+        font-size: 1.55rem;
         line-height: 1.6;
     }
 
@@ -1970,7 +1971,19 @@ footer span{
     .contact-links a
 
     .mobile-menu-search{
-        font-size: 1.15rem;
+        font-size: 2.15rem;
+    }
+
+    .category-card-content p{
+        font-size: 1.9vh;
+    }
+
+    .category-card-content a{
+        font-size: 2vh;
+    }
+
+    .contact-card-content h2{
+        font-size: 4rem;
     }
 }
 
