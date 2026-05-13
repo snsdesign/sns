@@ -139,3 +139,229 @@ const links = [
         link.addEventListener("click", closeMenu);
     });
 });
+
+/* Website search */
+document.addEventListener("DOMContentLoaded", () => {
+    function getBasePath(){
+        const path = window.location.pathname;
+        const isProjectDetailPage = path.includes("/pages/Projects/");
+        const isPagesPage = path.includes("/pages/");
+
+        if (isProjectDetailPage) return "../../";
+        if (isPagesPage) return "../";
+        return "";
+    }
+
+    const basePath = getBasePath();
+
+    const sitePages = [
+        {
+            title: "Home",
+            category: "Page",
+            keywords: "home portfolio graphic design motion design showreel services featured projects",
+            url: `${basePath}index.html`
+        },
+        {
+            title: "Projects",
+            category: "Page",
+            keywords: "projects selected work motion branding video visual identity portfolio",
+            url: `${basePath}pages/Projects.html`
+        },
+        {
+            title: "Motion Projects",
+            category: "Category",
+            keywords: "motion video editing vfx commercials post production color grading showreel",
+            url: `${basePath}pages/Motion.html`
+        },
+        {
+            title: "Branding Projects",
+            category: "Category",
+            keywords: "branding visual identity layout design social media digital design fomu",
+            url: `${basePath}pages/branding.html`
+        },
+        {
+            title: "About",
+            category: "Page",
+            keywords: "about sieben graphic motion designer skills tools experience workflow",
+            url: `${basePath}pages/about.html`
+        },
+        {
+            title: "Contact",
+            category: "Page",
+            keywords: "contact email phone message freelance collaboration hire",
+            url: `${basePath}pages/contact.html`
+        }
+    ];
+
+    const projectPages = [
+        {
+            title: "SEAT Ibiza Review",
+            category: "Motion Project",
+            keywords: "seat ibiza affiliate car review video editing color grading vfx commercial automotive storytelling",
+            url: `${basePath}pages/Projects/car review.html`
+        },
+        {
+            title: "Sneaker Commercial",
+            category: "Motion Project",
+            keywords: "sneaker commercial nike product video motion design cinematic editing advertising",
+            url: `${basePath}pages/Projects/sneaker.html`
+        },
+        {
+            title: "FOMU",
+            category: "Branding Project",
+            keywords: "fomu branding layout visual identity graphic design museum photography editorial",
+            url: `${basePath}pages/Projects/FOMU.html`
+        },
+        {
+            title: "C-fire Corporate Video",
+            category: "Motion Project",
+            keywords: "c-fire corporate video company video interview motion graphics lower thirds color grading",
+            url: `${basePath}pages/Projects/C-fire.html`
+        },
+        {
+            title: "Loop Earplugs",
+            category: "Motion Project",
+            keywords: "loop earplugs lokerse feesten 3d product animation sound waves commercial motion",
+            url: `${basePath}pages/Projects/loops.html`
+        },
+        {
+            title: "tahiti dynamic machine",
+            category: "Motion Project",
+            keywords: "dynamic machine 3D 3d tahiti cinema 4D forces rigid body dynamics ",
+            url: `${basePath}pages/Projects/tahiti.html`
+        },
+        {
+            title: "Apple Watch Commercial",
+            category: "Motion Project",
+            keywords: "apple watch hi tech commercial smartwatch product video cinematic motion",
+            url: `${basePath}pages/Projects/apple-watch.html`
+        },
+        {
+            title: "AR sports watch",
+            category: "Motion Project",
+            keywords: "AR sports watch vfx ",
+            url: `${basePath}pages/Projects/AR.html`
+        },
+        {
+            title: "Edea ice skates sports commercial",
+            category: "Motion Project",
+            keywords: "edea ice skates sports commercial ",
+            url: `${basePath}pages/Projects/edea.html`
+        },
+        {
+            title: "Winter Wonderland",
+            category: "VFX Project",
+            keywords: "winter wonderland vfx snow compositing color grading matte painting before after",
+            url: `${basePath}pages/Projects/winterwonderland.html`
+        },
+        {
+            title: "SNS Design Website",
+            category: "Web Project",
+            keywords: "website web development portfolio html css liquid glass responsive design",
+            url: `${basePath}pages/Projects/website.html`
+        }
+    ];
+
+    const searchPages = [...sitePages, ...projectPages];
+
+    function createResultsBox(input){
+        let box = input.parentElement.querySelector(".search-results-box");
+
+        if (!box) {
+            box = document.createElement("div");
+            box.className = "search-results-box";
+            input.parentElement.appendChild(box);
+        }
+
+        return box;
+    }
+
+    function scoreResult(page, query){
+        const searchableText = `${page.title} ${page.category} ${page.keywords}`.toLowerCase();
+        const title = page.title.toLowerCase();
+
+        if (title === query) return 100;
+        if (title.includes(query)) return 80;
+        if (searchableText.includes(query)) return 50;
+
+        const words = query.split(" ").filter(Boolean);
+        return words.reduce((score, word) => {
+            return searchableText.includes(word) ? score + 10 : score;
+        }, 0);
+    }
+
+    function renderResults(input){
+        const query = input.value.trim().toLowerCase();
+        const box = createResultsBox(input);
+
+        if (!query) {
+            box.classList.remove("is-visible");
+            box.innerHTML = "";
+            return;
+        }
+
+        const results = searchPages
+            .map((page) => ({ ...page, score: scoreResult(page, query) }))
+            .filter((page) => page.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 6);
+
+        if (!results.length) {
+            box.innerHTML = `
+                <div class="search-result-empty">
+                    No results found.
+                </div>
+            `;
+            box.classList.add("is-visible");
+            return;
+        }
+
+        box.innerHTML = results.map((page) => `
+            <a class="search-result-item" href="${page.url}">
+                <span>${page.category}</span>
+                <strong>${page.title}</strong>
+            </a>
+        `).join("");
+
+        box.classList.add("is-visible");
+    }
+
+    function setupSearchInput(input){
+        input.setAttribute("autocomplete", "off");
+
+        input.addEventListener("input", () => renderResults(input));
+
+        input.addEventListener("keydown", (event) => {
+            const box = createResultsBox(input);
+            const firstResult = box.querySelector(".search-result-item");
+
+            if (event.key === "Enter") {
+                event.preventDefault();
+
+                if (firstResult) {
+                    window.location.href = firstResult.href;
+                }
+            }
+
+            if (event.key === "Escape") {
+                input.value = "";
+                box.classList.remove("is-visible");
+                box.innerHTML = "";
+            }
+        });
+
+        document.addEventListener("click", (event) => {
+            const box = createResultsBox(input);
+
+            if (!input.contains(event.target) && !box.contains(event.target)) {
+                box.classList.remove("is-visible");
+            }
+        });
+    }
+
+    const searchInputs = document.querySelectorAll(
+        "#site-search-input, .site-search input, .mobile-menu-search"
+    );
+
+    searchInputs.forEach(setupSearchInput);
+});
