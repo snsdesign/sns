@@ -365,3 +365,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
     searchInputs.forEach(setupSearchInput);
 });
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 10) {
+        document.body.classList.add("has-scrolled");
+    }
+}, { once: true });
+
+/* Make full project/category cards clickable */
+document.addEventListener("DOMContentLoaded", () => {
+    const clickableCards = document.querySelectorAll(".project-card, .category-card");
+
+    clickableCards.forEach((card) => {
+        const cardLink = card.querySelector("a[href]");
+
+        if (!cardLink) return;
+
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("role", "link");
+
+        card.addEventListener("click", (event) => {
+            if (event.target.closest("a")) return;
+            window.location.href = cardLink.href;
+        });
+
+        card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                window.location.href = cardLink.href;
+            }
+        });
+    });
+});
+
+/* Infinite services carousel */
+document.addEventListener("DOMContentLoaded", () => {
+    const servicesGrid = document.querySelector(".services-grid");
+
+    if (!servicesGrid) return;
+
+    if (servicesGrid.dataset.cloned === "true") return;
+
+    const serviceCards = Array.from(servicesGrid.children);
+
+    serviceCards.forEach((card) => {
+        const clone = card.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        clone.classList.add("is-clone");
+        servicesGrid.appendChild(clone);
+    });
+
+    servicesGrid.dataset.cloned = "true";
+});
