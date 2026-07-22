@@ -404,16 +404,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!servicesGrid) return;
 
-    if (servicesGrid.dataset.cloned === "true") return;
-
     const serviceCards = Array.from(servicesGrid.children);
 
-    serviceCards.forEach((card) => {
-        const clone = card.cloneNode(true);
-        clone.setAttribute("aria-hidden", "true");
-        clone.classList.add("is-clone");
-        servicesGrid.appendChild(clone);
-    });
+    const buildCarousel = () => {
+        servicesGrid.querySelectorAll(".is-clone").forEach((clone) => clone.remove());
 
-    servicesGrid.dataset.cloned = "true";
+        const setWidth = serviceCards.reduce(
+            (width, card) => width + card.getBoundingClientRect().width,
+            0
+        );
+
+        if (!setWidth) return;
+
+        servicesGrid.style.setProperty("--services-set-width", `${setWidth}px`);
+
+        const copiesNeeded = Math.max(2, Math.ceil(window.innerWidth / setWidth) + 1);
+
+        for (let copy = 1; copy < copiesNeeded; copy += 1) {
+            serviceCards.forEach((card) => {
+                const clone = card.cloneNode(true);
+                clone.setAttribute("aria-hidden", "true");
+                clone.classList.add("is-clone");
+                servicesGrid.appendChild(clone);
+            });
+        }
+    };
+
+    buildCarousel();
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(buildCarousel, 150);
+    });
 });
