@@ -719,6 +719,7 @@ main{
 .services-grid{
     display:flex;
     width:max-content;
+    --services-set-width:50%;
     border-top:1px solid var(--line);
     border-left:1px solid var(--line);
     animation:servicesCarousel 26s linear infinite;
@@ -770,7 +771,7 @@ main{
     }
 
     to{
-        transform:translateX(-50%);
+        transform:translateX(calc(-1 * var(--services-set-width)));
     }
 }
 
