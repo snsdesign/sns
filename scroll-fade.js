@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const selectors = [
-        "section",
+        "section:not(.services-section)",
         ".project-card",
         ".tool-item",
         ".category-card",
@@ -20,7 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
         ".language-switch"
     ];
 
+    const isHome = document.body.dataset.page === "home";
     const fadeItems = Array.from(document.querySelectorAll(selectors.join(", "))).filter((item) => {
+        // The automatic home gallery owns its motion; overview cards reveal individually.
+        if (item.matches(".featured-projects")) return false;
+        if (isHome && item.matches(".featured-projects .project-card")) return false;
         return !excludedSelectors.some(
             (selector) => item.matches(selector) || item.closest(selector)
         );
@@ -64,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         },
         {
-            threshold: 0.12,
+            threshold: 0,
             rootMargin: "0px 0px -40px 0px"
         }
     );
@@ -72,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(() => {
         fadeItems.forEach((item, index) => {
             if (isBelowViewport(item)) {
-                const delay = Number((index * 0.04).toFixed(2));
+                const delay = (index % 3) * 0.06;
                 setHidden(item, delay);
                 observer.observe(item);
             }
@@ -437,4 +442,321 @@ document.addEventListener("DOMContentLoaded", () => {
         window.clearTimeout(resizeTimer);
         resizeTimer = window.setTimeout(buildCarousel, 150);
     });
+});
+
+
+/* Native scrolling with frame-rate-independent damping; no wheel interception. */
+document.addEventListener("DOMContentLoaded", () => {
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    const desktop = matchMedia("(min-width:901px) and (min-height:650px)");
+    const pointer = matchMedia("(hover:hover) and (pointer:fine)");
+    const story = document.querySelector('.featured-projects');
+    const originalCards = [...(story?.querySelectorAll('.project-card') || [])];
+    const cards = [...originalCards];
+    // Three repeated sets keep recycling outside the viewport at both ends.
+    // Repeats remain clickable but never add duplicate keyboard stops or announcements.
+    for(let set=1;set<3;set++){
+        originalCards.forEach(original => {
+            const copy=original.cloneNode(true);
+            copy.classList.add('is-loop-copy');
+            copy.setAttribute('aria-hidden','true');
+            copy.setAttribute('tabindex','-1');
+            copy.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+            copy.querySelectorAll('a,button,input,[tabindex]').forEach(el=>el.setAttribute('tabindex','-1'));
+            copy.addEventListener('click',event=>{
+                if(event.target.closest('a'))return;
+                const link=copy.querySelector('a[href]');if(link)location.href=link.href;
+            });
+            original.parentElement.append(copy);cards.push(copy);
+        });
+    }
+    // Independent planes give hovered cards a reliable front layer in perspective.
+    const planes = cards.map(card => {
+        const plane = document.createElement('div');
+        plane.className = 'project-plane';
+        card.before(plane);plane.append(card);
+        return plane;
+    });
+    const cardHover = cards.map(() => 0);
+    let hoveredCard = null, focusedCard = null;
+    const updateLayers = () => planes.forEach((plane,index) => {
+        plane.classList.toggle('is-front',cards[index] === (hoveredCard || focusedCard));
+        plane.style.setProperty('--plane-layer',20-index);
+    });
+    cards.forEach(card => {
+        card.addEventListener('pointerenter',event => { if(event.pointerType==='touch')return;hoveredCard=card;updateLayers();wake(); });
+        card.addEventListener('pointerleave',() => { if(hoveredCard===card)hoveredCard=null;updateLayers();wake(); });
+        card.addEventListener('pointercancel',() => { hoveredCard=null;updateLayers();wake(); });
+        card.addEventListener('focusin',() => {focusedCard=card;updateLayers();wake();});
+        card.addEventListener('focusout',event => {if(!card.contains(event.relatedTarget)){focusedCard=null;updateLayers();wake();}});
+    });
+    updateLayers();
+    const controls = story?.querySelector('.gallery-controls');
+    const previous = controls?.querySelector('.gallery-prev');
+    const next = controls?.querySelector('.gallery-next');
+    const counter = controls?.querySelector('.gallery-count');
+    const autoplayToggle = controls?.querySelector('.gallery-autoplay');
+    let galleryVisible = false, galleryPaused = false, manualTarget = null;
+    const collage = document.querySelector('.hero-collage');
+    const collageCards = [...(collage?.querySelectorAll('.hero-collage-item') || [])];
+    let collageVisible = true;
+    const updateFloating = () => collage?.classList.toggle('is-floating',collageVisible && !reduced.matches && !paused);
+    const holdCollageCard = card => {
+        if(card.classList.contains('is-held'))return;
+        card.style.setProperty('--held-transform',getComputedStyle(card).transform);
+        card.classList.add('is-held');
+    };
+    const releaseCollageCard = card => {
+        card.classList.remove('is-held');card.style.removeProperty('--held-transform');
+    };
+    collageCards.forEach(card => {
+        card.addEventListener('pointerenter',event => {if(event.pointerType!=='touch')holdCollageCard(card);});
+        card.addEventListener('pointerleave',() => {if(!card.matches(':focus-within'))releaseCollageCard(card);});
+        card.addEventListener('pointercancel',() => releaseCollageCard(card));
+        card.addEventListener('focusin',() => holdCollageCard(card));
+        card.addEventListener('focusout',() => {if(!card.matches(':hover'))releaseCollageCard(card);});
+    });
+    const toggle = document.querySelector('.motion-toggle');
+    const openingHero = document.querySelector('.hero:has(.hero-collage)');
+    const services = document.querySelector('.services-section');
+    let heroProgress = 0;
+    // Dissolve outgoing sections while they are still visibly on screen.
+    // The gallery uses its own surface so its background dissolves with the cards.
+    const exitScenes = document.body.dataset.page === 'home'
+        ? [...document.querySelectorAll('body > section, body > .motion-ribbon')].map(section => ({
+            section,
+            surface:section.querySelector('.projects-stage') || section,
+            presence:1
+        })) : [];
+    // Word splitting and horizontal type motion belong to the index page only.
+    // Other pages retain their authored text flow, spacing and punctuation.
+    const headings = document.body.dataset.page === 'home'
+        ? [...document.querySelectorAll('h1,.section-heading h2,.cta-content h2,.showreel .section-kicker')].filter(h=>h.textContent.trim())
+        : [];
+    const headingProgress = new WeakMap();
+    let paused = false, frame = 0, lastTime = 0, current = 0, lastIndex = -1;
+    let tiltX = 0, tiltY = 0, aimX = 0, aimY = 0;
+    const movingHeadings = new Set();
+    const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                movingHeadings.add(entry.target);
+            } else movingHeadings.delete(entry.target);
+        });
+        wake();
+    }, {rootMargin:'80px'}) : null;
+    headings.forEach(heading => {
+        if(heading.hasAttribute('data-line-motion')){
+            [...heading.querySelectorAll('.kinetic-line')].forEach((line,index) => {
+                line.classList.add('kinetic-word');
+                line.style.setProperty('--word-index',index);
+                line.style.setProperty('--word-direction',index%2 ? -.65:1);
+            });
+            if(observer){if(!reduced.matches)heading.classList.add('kinetic-ready');observer.observe(heading);}
+            return;
+        }
+        const walker = document.createTreeWalker(heading,NodeFilter.SHOW_TEXT), nodes = [];
+        while(walker.nextNode()) nodes.push(walker.currentNode);
+        let index=0;
+        nodes.forEach(node=>{
+            const fragment=document.createDocumentFragment();
+            node.textContent.split(/(\s+)/).forEach(part=>{
+                if(!part.trim()){fragment.append(document.createTextNode(part));return;}
+                const word=document.createElement('span');word.className='kinetic-word';word.textContent=part;
+                word.style.setProperty('--word-index',Math.min(index,8));
+                word.style.setProperty('--word-direction',index++%2 ? -.65:1);
+                fragment.append(word);
+            });
+            node.replaceWith(fragment);
+        });
+        if(observer){
+            if(!reduced.matches) heading.classList.add('kinetic-ready');
+            observer.observe(heading);
+        }
+    });
+    function wake(){if(!frame&&!document.hidden)frame=requestAnimationFrame(render);}
+    function drawGallery(){
+        const wide=innerWidth>900;
+        const spacing=wide ? Math.min(innerWidth*.245,370) : Math.min(innerWidth*.84,440)+20;
+        cards.forEach((card,index)=>{
+            const count=cards.length;
+            const d=((index-current+count/2)%count+count)%count-count/2;
+            const x=(wide ? -210:0)+d*spacing;
+            const lift=cardHover[index];
+            const y=wide ? 75-d*70-lift*18 : -lift*5;
+            const z=wide ? -Math.abs(d)*180+lift*130 : 0;
+            card.style.setProperty('--card-pose',`translate3d(calc(-50% + ${x}px),calc(-50% + ${y}px),${z}px) rotateY(${wide ? -28+lift*15:0}deg) rotateZ(${wide ? -6+lift*3:0}deg) scale(${1+lift*.025})`);
+            // Nearest cards cover the distant panels, independently of cycle number.
+            planes[index].style.setProperty('--plane-layer',40-Math.round(Math.abs(d)*3));
+        });
+        const index=((Math.round(current)%originalCards.length)+originalCards.length)%originalCards.length;
+        if(index!==lastIndex && counter){
+            counter.textContent=`${String(index+1).padStart(2,'0')} / ${String(originalCards.length).padStart(2,'0')}`;
+            previous.disabled=false;next.disabled=false;lastIndex=index;
+        }
+    }
+    function render(time){
+        frame=0;
+        // Re-check on interaction as well as media events (some browsers defer those while focused).
+        if(story && controls && originalCards.length>1 && story.classList.contains('is-gallery')===reduced.matches)configure();
+        const dt=Math.min(64,lastTime ? time-lastTime:16);lastTime=time;
+        const ease=1-Math.exp(-dt/115);
+        let unsettled=false;
+        if(story?.classList.contains('is-gallery')){
+            if(manualTarget!==null){
+                current=paused ? manualTarget:current+(manualTarget-current)*ease;
+                if(Math.abs(manualTarget-current)<.0005){current=manualTarget;manualTarget=null;}
+                else unsettled=true;
+            }else if(galleryVisible && !paused && !galleryPaused && !hoveredCard && !focusedCard){
+                current+=dt/14000; // One project every 14 seconds; time-based at every refresh rate.
+                unsettled=true;
+            }
+            cardHover.forEach((value,index) => {
+                const desired=planes[index].classList.contains('is-front') ? 1:0;
+                cardHover[index]=paused ? desired:value+(desired-value)*(1-Math.exp(-dt/170));
+                if(Math.abs(desired-cardHover[index])<.001)cardHover[index]=desired;else unsettled=true;
+                planes[index].classList.toggle('is-returning',!desired && cardHover[index]>.01);
+            });
+            drawGallery();
+        }
+        if(!reduced.matches&&!paused){
+            exitScenes.forEach(scene => {
+                const rect=scene.section.getBoundingClientRect();
+                const start=Math.max(1,Math.min(rect.height*.9,innerHeight*.95));
+                const end=Math.min(innerHeight*.32,start*.45);
+                const progress=Math.max(0,Math.min(1,(start-rect.bottom)/(start-end)));
+                const desired=1-progress*progress*(3-2*progress);
+                scene.presence+=(desired-scene.presence)*(1-Math.exp(-dt/65));
+                if(Math.abs(desired-scene.presence)<.0005)scene.presence=desired;else unsettled=true;
+                scene.surface.style.setProperty('--section-presence',scene.presence);
+            });
+            if(openingHero){
+                const rect=openingHero.getBoundingClientRect();
+                const heroTarget=Math.max(0,Math.min(1,-rect.top / Math.min(innerHeight*.85,rect.height*.8)));
+                heroProgress+=(heroTarget-heroProgress)*ease;
+                if(Math.abs(heroTarget-heroProgress)<.0005)heroProgress=heroTarget;else unsettled=true;
+                const travel=Math.min(innerWidth*.48,720);
+                openingHero.style.setProperty('--hero-travel',`${heroProgress*travel}px`);
+                openingHero.style.setProperty('--hero-fade',1-heroProgress*.85);
+                openingHero.style.setProperty('--hero-collage-exit',`${heroProgress*85}px`);
+            }
+            if(services){
+                const rect=services.getBoundingClientRect();
+                const layoutTop=rect.top-parseFloat(services.style.getPropertyValue('--section-lift')||'0');
+                const reveal=Math.max(0,Math.min(1,(innerHeight-layoutTop)/(innerHeight*.65)));
+                services.style.setProperty('--section-lift',`${(1-reveal)*100}px`);
+                services.style.setProperty('--section-reveal',.25+reveal*.75);
+            }
+            movingHeadings.forEach(heading=>{
+                const rect=heading.getBoundingClientRect();
+                if(openingHero?.contains(heading))return;
+                // Section titles use the same scroll motion as the hero.
+                const host=heading.closest('.projects-stage') || heading.closest('section') || heading;
+                const bounds=host.getBoundingClientRect();
+                const range=Math.max(1,Math.min(innerHeight*.85,bounds.height*.8));
+                const incoming=Math.max(0,Math.min(1,(bounds.top-innerHeight*.3)/(innerHeight*.7)));
+                const desired=bounds.top>0 ? -incoming*.3 : Math.min(1,-bounds.top/range);
+                let progress=headingProgress.get(heading) ?? desired;
+                progress+=(desired-progress)*ease;
+                if(Math.abs(desired-progress)<.0005)progress=desired;else unsettled=true;
+                headingProgress.set(heading,progress);
+                const travel=Math.min(innerWidth*.48,720)*(innerWidth<=900 ? .6:1);
+                heading.style.setProperty('--heading-drift',`${progress*travel}px`);
+            });
+            tiltX+=(aimX-tiltX)*ease;tiltY+=(aimY-tiltY)*ease;
+            if(collage?.classList.contains('is-interactive')){
+                collage.style.setProperty('--tilt-x',`${tiltX}deg`);collage.style.setProperty('--tilt-y',`${tiltY}deg`);
+                if(Math.abs(aimX-tiltX)+Math.abs(aimY-tiltY)>.01)unsettled=true;
+            }
+        }
+        if(unsettled)wake();else lastTime=0;
+    }
+    function configure(){
+        const enabled=!reduced.matches&&originalCards.length>1&&!!controls;
+        story?.classList.toggle('is-gallery',enabled);
+        if(controls)controls.hidden=!enabled;
+        story?.style.removeProperty('--story-height');
+        if(!enabled){
+            story?.style.removeProperty('--story-height');
+            cards.forEach(card=>{card.style.removeProperty('--card-pose');card.style.removeProperty('--card-layer');});
+        }
+        collage?.classList.toggle('is-interactive',pointer.matches&&!reduced.matches&&!paused);
+        updateFloating();
+        exitScenes.forEach(scene => {
+            scene.surface.classList.toggle('exit-fade-surface',!reduced.matches&&!paused);
+            if(reduced.matches||paused){scene.presence=1;scene.surface.style.removeProperty('--section-presence');}
+        });
+        openingHero?.classList.toggle('has-scroll-motion',!reduced.matches&&!paused);
+        services?.classList.toggle('has-section-reveal',!reduced.matches&&!paused);
+        if(reduced.matches||paused){
+            heroProgress=0;
+            openingHero?.style.removeProperty('--hero-travel');
+            openingHero?.style.removeProperty('--hero-fade');
+            openingHero?.style.removeProperty('--hero-collage-exit');
+            services?.style.removeProperty('--section-lift');
+            services?.style.removeProperty('--section-reveal');
+            aimX=aimY=tiltX=tiltY=0;
+            collage?.style.removeProperty('--tilt-x');collage?.style.removeProperty('--tilt-y');
+            headings.forEach(h=>{h.classList.add('is-revealed');h.style.removeProperty('--heading-drift');headingProgress.delete(h);});
+            document.querySelectorAll('[style*="opacity: 0"]').forEach(el=>{el.style.opacity='1';el.style.transform='none';});
+        }
+        wake();
+    }
+    function goTo(index,instant=false){
+        if(!story?.classList.contains('is-gallery'))return;
+        if(instant){
+            current=index;manualTarget=null;
+            story.querySelector('.projects-viewport').scrollLeft=0;
+            drawGallery();
+        }else manualTarget=index;
+        wake();
+    }
+    previous?.addEventListener('click',()=>goTo(Math.round(current)-1));
+    next?.addEventListener('click',()=>goTo(Math.round(current)+1));
+    autoplayToggle?.addEventListener('click',()=>{
+        galleryPaused=!galleryPaused;
+        autoplayToggle.setAttribute('aria-pressed',String(galleryPaused));
+        autoplayToggle.setAttribute('aria-label',galleryPaused ? 'Resume project loop':'Pause project loop');
+        autoplayToggle.textContent=galleryPaused ? 'Play':'Pause';wake();
+    });
+    // Keep pointer focus from scrolling transformed cards between press and release.
+    story?.querySelector('.projects-grid')?.addEventListener('mousedown',event=>{
+        if(event.button===0 && story.classList.contains('is-gallery') && event.target.closest('.project-card'))event.preventDefault();
+    });
+    story?.querySelector('.projects-grid')?.addEventListener('focusin',event=>{
+        const card=event.target.closest('.project-card');
+        if(card && event.target.matches(':focus-visible'))goTo(cards.indexOf(card),true);
+    });
+    collage?.addEventListener('pointermove',event=>{
+        if(paused||reduced.matches||!pointer.matches||event.pointerType==='touch')return;
+        const rect=collage.getBoundingClientRect();
+        aimX=-Math.max(-1,Math.min(1,(event.clientY-rect.top)/rect.height*2-1))*4;
+        aimY=Math.max(-1,Math.min(1,(event.clientX-rect.left)/rect.width*2-1))*5;wake();
+    });
+    const reset=()=>{aimX=aimY=0;wake();};
+    collage?.addEventListener('pointerleave',reset);collage?.addEventListener('pointercancel',reset);
+    toggle?.addEventListener('click',()=>{
+        paused=!paused;document.body.classList.toggle('motion-paused',paused);
+        toggle.setAttribute('aria-pressed',String(paused));toggle.textContent=paused?'Resume motion':'Pause motion';configure();
+    });
+    window.addEventListener('scroll',wake,{passive:true});
+    window.addEventListener('resize',configure);
+    window.addEventListener('focus',configure);
+    window.addEventListener('load',configure,{once:true});
+    reduced.addEventListener('change',configure);desktop.addEventListener('change',configure);pointer.addEventListener('change',configure);
+    document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;lastTime=0;}else wake();});
+    if(story && 'IntersectionObserver' in window){
+        const galleryObserver=new IntersectionObserver(entries=>{
+            galleryVisible=entries[0].isIntersecting;lastTime=0;wake();
+        },{threshold:0});
+        galleryObserver.observe(story);
+    }else galleryVisible=!!story;
+    if(collage && 'IntersectionObserver' in window){
+        const floatObserver=new IntersectionObserver(entries=>{
+            collageVisible=entries[0].isIntersecting;updateFloating();
+        });
+        floatObserver.observe(collage);
+    }
+    document.fonts?.ready.then(configure);configure();
 });
