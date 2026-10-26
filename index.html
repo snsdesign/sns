@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Home │ snsdesign</title>
         <link rel="icon" href="images/favicon 32 light.svg" type="image/svg+xml">
         <link rel="icon" href="images/favicon 32 light.svg" sizes="32x32" media="(prefers-color-scheme: light)" type="image/svg+xml">
@@ -12,36 +13,34 @@
             /*Hier kan je inline werken - soms als je snel wil testen is dat handig*/
         </style>
         <link href="css/reset_plus.css" rel="stylesheet" type="text/css" media="screen"  />
-        <link rel="stylesheet" href="reset_plus.css">
-        <link rel="stylesheet" href="style.css">
         <link href="css/style.css" rel="stylesheet" type="text/css" media="screen"  />
         <link rel="stylesheet" href="https://use.typekit.net/hnq1rih.css">
     </head>
 
     
-<body>
+<body data-page="home">
     
     <header>
         <ul id="logo">
-          <a href="../index.html"><img src="../images/logo white.png" alt=""></a>
+          <a href="index.html"><img src="images/logo white.png" alt=""></a>
         </ul>
     
     
           <ul class="nav-links">
-            <li class="nav-item"><a href="../index.html">home</a></li>
+            <li class="nav-item"><a href="index.html">home</a></li>
     
             <ul class="nav-links">
               <li class="nav-item dropdown">
-                <a href="../pages/Projects.html">projects</a>
+                <a href="pages/Projects.html">projects</a>
       
                 <ul class="dropdown-menu">
-                  <li><a href="../pages/Motion.html">motion</a></li>
-                  <li><a href="../pages/branding.html">branding</a></li>
+                  <li><a href="pages/Motion.html">motion</a></li>
+                  <li><a href="pages/branding.html">branding</a></li>
                 </ul>
               </li>
     
             <li class="nav-item">
-              <a href="../pages/about.html">about</a>
+              <a href="pages/about.html">about</a>
             </li>
     
             <li class="nav-item"><a href="pages/contact.html">contact</a></li>
@@ -62,7 +61,7 @@
         
             VISUALS.<br>
         
-            <span class="accent-word accent-pulse">CINEMATIC</span>        
+            <span class="accent-word">CINEMATIC</span>        
             EXECUTION.
         
         </h1>        
@@ -79,19 +78,19 @@
     </div>
 
     <div class="hero-visual hero-collage" aria-label="Featured project collage">
-        <a class="hero-collage-item collage-4" href="../pages/Projects/C-fire.html">
-            <img src="../images/IMG_2296.png" alt="Corporate video C-fire project preview">
-            <span>C-Fire<br>Corporate Video</span>
+        <a class="hero-collage-item collage-4" href="pages/Projects/Circet.html">
+            <img src="images/Circet.png" alt="Circet project previewK">
+            <span>Circet<br>Internal videos</span>
         </a>
 
         <a class="hero-collage-item collage-2" href="pages/Projects/car review.html">
             <img src="images/car review.png" alt="Affiliate car review project preview">
-            <span>SEAT Ibiza<br>Car Review</span>
+            <span>SEAT Ibiza<br>Affiliate Car Review</span>
         </a>
 
-        <a class="hero-collage-item collage-3" href="pages/Projects/sneaker.html">
-            <img src="images/sneaker.png" alt="Nike Air Force 1 project preview">
-            <span>Nike AF1<br>Commercial</span>
+        <a class="hero-collage-item collage-3" href="pages/Projects/Kasteel van Laarne.html">
+            <img src="images/kvl.png" alt="asteel van Laarne Monumentvideo preview">
+            <span>Kasteel van Laarne<br>Monumentvideo</span>
         </a>
 
         <a class="hero-collage-item collage-1" href="pages/Projects/FOMU.html">
@@ -101,14 +100,20 @@
     </div>
 </section>
 
+<div class="motion-ribbon" aria-label="Motion, video and digital design">
+    <div class="motion-ribbon-window" aria-hidden="true"><div class="motion-ribbon-track">
+        <span>MOTION / <em>VIDEO</em> / DIGITAL /&nbsp;</span><span>MOTION / <em>VIDEO</em> / DIGITAL /&nbsp;</span>
+    </div></div>
+    <button class="motion-toggle" type="button" aria-pressed="false">Pause motion</button>
+</div>
 <section class="services-section">
     <div class="section-heading">
         <p class="section-kicker">Services</p>
-        <h2>
-            <span class="accent-word">MOTION</span>,<br>
-            <span class="accent-word">VIDEO</span> AND<br>
-            <span class="accent-word">DIGITAL</span><br>
-            EXPERIENCES.
+        <h2 data-line-motion>
+            <span class="kinetic-line"><span class="accent-word">MOTION</span><span class="line-punctuation">,</span></span>
+            <span class="kinetic-line"><span class="accent-word">VIDEO</span><span class="line-connector">AND</span></span>
+            <span class="kinetic-line"><span class="accent-word">DIGITAL</span></span>
+            <span class="kinetic-line">EXPERIENCES.</span>
         </h2>        <p>
             From motion graphics and post production to digital design and web experiences, each service is built around clean visuals and technically refined execution.
         </p>
@@ -150,9 +155,86 @@
     </div>
 </section>
 
+<section class="featured-projects" aria-label="Featured projects">
+    <div class="projects-stage">
+    <div class="section-heading">
+        <p class="section-kicker">Featured Projects</p>
+        <h2>SELECTED<br><span class="accent-word">WORK.</span></h2>
+    </div>
+
+    <div class="projects-viewport">
+    <div class="projects-grid">
+        <article class="project-card">
+            <img src="images/kvl.png" alt="Kasteel van Laarne video preview">
+            <div class="project-info">
+                <h3>Monumentvideo Kasteel van Laarne</h3>
+                <p>A cinematic exploration of Laarne Castle, capturing its historic architecture and atmosphere through carefully composed shots, visual storytelling and thoughtful editing.</p>
+                <a href="pages/Projects/Kasteel van Laarne.html">View Project</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <img src="images/Circet.png" alt="">
+            <div class="project-info">
+                <h3>Circet</h3>
+                <p>A series of animated explainer videos created for Circet, transforming complex internal information into clear, engaging visuals through custom illustrations, motion graphics and visual storytelling.</p>
+                <a href="pages/Projects/Circet.html">View Project</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <img src="images/bliss boost cover.jpg" alt="Bliss Boost visual identity preview">
+            <div class="project-info">
+                <h3>Bliss Boost</h3>
+                <p>A vibrant visual identity built around bold typography, playful colors and a cohesive design language, bringing a fresh and recognizable personality to the brand.</p>
+                <a href="pages/Projects/bliss boost.html">View Project</a>
+            </div>
+        </article>
+        <article class="project-card">
+            <img src="images/car review.png" alt="SEAT Ibiza car review preview">
+            <div class="project-info">
+                <h3>Affiliate car review SEAT</h3>
+                <p>A cinematic affiliate car review combining dynamic editing, storytelling and clean commercial visuals.</p>
+                <a href="pages/Projects/car review.html">View Project</a>
+            </div>
+        </article>
+        <!-- Placeholder 05: replace this cover and copy when the project is ready. -->
+        <article class="project-card">
+            <img src="images/FOMU.png" alt="FOMU visual identity preview">
+            <div class="project-info">
+                <h3>FOMU Leporello</h3>
+                <p>An editorial visual identity exploring photography, typography and graphic design.</p>
+                <a href="pages/Projects/FOMU.html">View Project</a>
+            </div>
+        </article>
+        <!-- Placeholder 06: replace this cover and copy when the project is ready. -->
+        <article class="project-card">
+            <img src="images/atelier.png" alt="FOMU visual identity preview">
+            <div class="project-info">
+                <h3>Gerry's Fietsatelier</h3>
+                <p>Creating engaging short-form video content for a local bicycle workshop, combining dynamic editing, authentic visuals and storytelling tailored for social media.</p>
+                <a href="pages/Projects/Gerry's Fietsatelier.html">View Project</a>
+            </div>
+        </article>
+        
+    </div>
+
+    </div>
+    <div class="gallery-controls" hidden>
+        <button type="button" class="gallery-prev" aria-label="Previous project">←</button>
+        <span class="gallery-count" aria-live="off" aria-atomic="true">01 / 08</span>
+        <button type="button" class="gallery-next" aria-label="Next project">→</button>
+        <button type="button" class="gallery-autoplay" aria-label="Pause project loop" aria-pressed="false">Pause</button>
+        <span class="gallery-hint">Auto loop</span>
+    </div>
+    <div class="projects-progress" aria-hidden="true"><span></span></div>
+<a class="btn-primary" id="btn-center" href="pages/Projects.html">View all projects</a>
+    </div>
+</section>
+
 <section class="showreel">
     <div class="section-heading">
-        <p class="section-kicker">Motion showreel</p>
+        <p class="section-kicker" data-line-motion><span class="kinetic-line">Motion showreel</span></p>
         <h2></h2>
         <p>
         </p>
@@ -169,53 +251,18 @@
   </div>
 </section>
 
-<section class="featured-projects">
-    <div class="section-heading">
-        <p class="section-kicker">Featured Projects</p>
-        <h2></h2>
-    </div>
 
-    <div class="projects-grid">
-        <article class="project-card">
-            <img src="../images/IMG_2296.png" alt="Preview of Loop Earplugs project">
-            <div class="project-info">
-                <h3>Corporate video C-fire</h3>
-                <p>A cinematic corporate video focused on storytelling, branding and visually communicating the identity of C-fire.</p>
-                <a href="../pages/Projects/C-fire.html">View Project</a>
-            </div>
-        </article>
-
-        <article class="project-card">
-            <img src="images/car review.png" alt="Preview of Loop Earplugs project">
-            <div class="project-info">
-                <h3>Affiliate car review</h3>
-                <p>A cinematic affiliate car review combining dynamic editing, storytelling and clean commercial visuals.</p>
-                <a href="pages/Projects/car review.html">View Project</a>
-            </div>
-        </article>
-
-        <article class="project-card">
-            <img src="images/sneaker.png" alt="Preview of Nike Air Force 1 project">
-            <div class="project-info">
-                <h3>Nike Air Force 1</h3>
-                <p>A fast-paced commercial focused on rhythm, product detail and cinematic brand visuals.</p>
-                <a href="pages/Projects/sneaker.html">View Project</a>
-            </div>
-        </article>
-    </div>
-
-<a class="btn-primary" id="btn-center" href="pages/Projects.html">View all projects</a>
-
-</section>
 
 
 
 <section class="hero" id="home">
     <div class="hero-content">
         <p class="hero-kicker">Let’s work</p>
-        <h1>MOTION.
-            VIDEO.
-            DIGITAL .</h1>
+        <h1 data-line-motion>
+            <span class="kinetic-line">MOTION.</span>
+            <span class="kinetic-line">VIDEO.</span>
+            <span class="kinetic-line">DIGITAL.</span>
+        </h1>
         <p class="hero-text">
             Available for freelance projects, creative collaborations and visual production across motion, video and digital design.
 
