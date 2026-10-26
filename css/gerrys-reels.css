@@ -1,0 +1,40 @@
+/* Gerry's Fietsatelier: full 9:16 reels with native, accessible playback controls. */
+.gerrys-reels-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,360px));
+    gap:clamp(1.6rem,2.5vw,3.6rem);
+    justify-content:center;
+    align-items:stretch;
+}
+.gerrys-reel-card {
+    min-width:0;
+    overflow:hidden;
+    background:var(--panel);
+    border:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    transition:border-color .45s ease,box-shadow .55s ease;
+}
+.gerrys-reel-card:hover,.gerrys-reel-card:focus-within {
+    border-color:var(--orange);
+    box-shadow:0 0 28px rgba(240,90,36,.12);
+}
+.gerrys-reel-card video {
+    display:block;
+    width:100%;
+    height:auto;
+    aspect-ratio:9 / 16;
+    object-fit:contain;
+    background:#0d0d0d;
+}
+.gerrys-reel-card video:focus-visible { outline:2px solid var(--orange); outline-offset:-3px; }
+.gerrys-reel-caption { padding:1.8rem; display:grid; gap:.75rem; }
+.gerrys-reel-caption .gerrys-reel-number { color:var(--orange); font-size:.9rem; text-transform:uppercase; letter-spacing:.12em; }
+.gerrys-reel-caption h3 { font-size:clamp(2rem,2vw,2.7rem); line-height:1.05; letter-spacing:-.05em; }
+.gerrys-reel-caption p { font-family:var(--font-body); font-size:1.3rem; line-height:1.4; }
+@media (max-width:640px) {
+    .gerrys-reels-grid { grid-template-columns:minmax(0,380px); gap:2.4rem; }
+}
+@media (prefers-reduced-motion:reduce) {
+    .gerrys-reel-card { transition:none; }
+}
