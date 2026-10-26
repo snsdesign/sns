@@ -145,230 +145,83 @@ const links = [
     });
 });
 
-/* Website search */
+/* Website search: generated page content, immediate results, no external service. */
 document.addEventListener("DOMContentLoaded", () => {
-    function getBasePath(){
-        const path = window.location.pathname;
-        const isProjectDetailPage = path.includes("/pages/Projects/");
-        const isPagesPage = path.includes("/pages/");
-
-        if (isProjectDetailPage) return "../../";
-        if (isPagesPage) return "../";
-        return "";
+    /* SEARCH_INDEX_START */
+    const searchRecords = [{"title":"Home","category":"Page","path":"index.html","headings":"MINIMAL VISUALS. CINEMATIC EXECUTION. MOTION , VIDEO AND DIGITAL EXPERIENCES. Video Production Motion Design VFX & Post Production Web & Digital Design SELECTED WORK. Monumentvideo Kasteel van Laarne Circet Bliss Boost Affiliate car review SEAT FOMU Leporello Gerry's Fietsatelier MOTION. VIDEO. DIGITAL.","text":"Graphic & Motion Designer MINIMAL VISUALS. CINEMATIC EXECUTION. I create modern visual experiences through motion design, video production and digital design. With a strong eye for detail and a workflow built around efficiency and collaboration, I focus on creating work that feels cinematic, minimal and technically refined. View Projects About Me Featured project collage Circet project previewK Circet Internal videos Affiliate car review project preview SEAT Ibiza Affiliate Car Review asteel van Laarne Monumentvideo preview Kasteel van Laarne Monumentvideo FOMU project preview FOMU Visual Identity Motion, video and digital design Pause motion Services MOTION , VIDEO AND DIGITAL EXPERIENCES. From motion graphics and post production to digital design and web experiences, each service is built around clean visuals and technically refined execution. 01 Video Production Commercials, editing and full video production workflows from concept development to final delivery. 02 Motion Design Motion graphics, animated visuals and cinematic motion systems focused on rhythm, storytelling and clarity. 03 VFX & Post Production Visual effects, compositing and color grading focused on cinematic and polished final visuals. 04 Web & Digital Design Minimal and modern websites designed around usability, clean layouts and visual consistency. Featured projects Featured Projects SELECTED WORK. Kasteel van Laarne video preview Monumentvideo Kasteel van Laarne A cinematic exploration of Laarne Castle, capturing its historic architecture and atmosphere through carefully composed shots, visual storytelling and thoughtful editing. View Project Circet A series of animated explainer videos created for Circet, transforming complex internal information into clear, engaging visuals through custom illustrations, motion graphics and visual storytelling. View Project Bliss Boost visual identity preview Bliss Boost A vibrant visual identity built around bold typography, playful colors and a cohesive design language, bringing a fresh and recognizable personality to the brand. View Project SEAT Ibiza car review preview Affiliate car review SEAT A cinematic affiliate car review combining dynamic editing, storytelling and clean commercial visuals. View Project FOMU visual identity preview FOMU Leporello An editorial visual identity exploring photography, typography and graphic design. View Project FOMU visual identity preview Gerry's Fietsatelier Creating engaging short-form video content for a local bicycle workshop, combining dynamic editing, authentic visuals and storytelling tailored for social media. View Project View all projects Motion showreel Let’s work MOTION. VIDEO. DIGITAL. Available for freelance projects, creative collaborations and visual production across motion, video and digital design. View Projects Contact Me SNS Design logo","description":"I create modern visual experiences through motion design, video production and digital design.","aliases":"home start portfolio diensten services motion video digital digitaal showreel contact"},{"title":"Motion Projects","category":"Category","path":"pages/Motion.html","headings":"Selected work in motion . Monumentvideo Gerry's Fietsatelier Circet - Explainer videos Affiliate car review Sneaker commercial AR sports watch Winterwonderland A walk in the park","text":"Motion Projects Selected work in motion . This page gives an overview of all the motion projects that I have made in the past. From motion design to video work. Projects Monumentvideo A cinematic exploration of Laarne Castle through filming, editing and visual storytelling. View Project Gerry's Fietsatelier Short-form social content highlighting cycling safety and new products. View Project Circet - Explainer videos Animated explainer videos turning complex information into clear, engaging visuals. View Project Affiliate car review An automotive video focused on cinematic framing, editing and compositing. View Project Sneaker commercial A sneaker commercial combining dynamic visuals, editing and storytelling. View Project AR sports watch An augmented reality concept combining motion tracking, compositing and holographic visuals. View Project Winterwonderland A VFX project transforming a natural landscape into a snowy winter scene. View Project A walk in the park A 2D animation project combining character design, rigging and motion graphics. View Project Back","description":"This page gives an overview of all the motion projects that I have made in the past. From motion design to video work.","aliases":"motion animatie animaties video films montage videomontage vfx nabewerking"},{"title":"Eastpak × Juice WRLD","category":"Branding Project","path":"pages/Projects/999.html","headings":"Eastpak x Juice WRLD. Project gallery","text":"Project Eastpak x Juice WRLD. … … … … Visuals Project gallery A selection of visuals from the project. Back","description":"","aliases":"eastpak juice wrld juicewrld 999 rugzak backpack branding samenwerking"},{"title":"AR Sports Watch","category":"Motion Project","path":"pages/Projects/AR.html","headings":"AR sports watch.","text":"Project AR sports watch. For this project, I designed and integrated a futuristic Apple-inspired holographic interface into live-action footage. The goal was to create a realistic wearable UI that naturally emerged from a sports watch while blending seamlessly with the filmed environment. The interface follows a minimal design language using red, white, blue and fluorescent yellow accents. Performance data such as heart rate, step count, bar charts and circular graphs were animated to create a believable fitness dashboard. Particular attention was given to timing, motion and subtle animations to make the hologram feel responsive and alive. From motion tracking and camera tracking to rotoscoping, compositing and expressions, this project introduced me to several new visual effects techniques. Combined with sci-fi sound effects and an energetic soundtrack, the final result became a polished and immersive motion graphics piece. The biggest challenge was making the hologram feel convincing, which ultimately became the part I'm most proud of. Video Back","description":"For this project, I designed and integrated a futuristic Apple-inspired holographic interface into live-action footage. The goal was to create a realistic wearable UI that naturally emerged from a sports watch while blending seamlessly with the filmed environment.","aliases":"ar sporthorloge horloge hologram augmented reality vfx"},{"title":"C-fire Corporate Video","category":"Motion Project","path":"pages/Projects/C-fire.html","headings":"Corporate video C-fire Project gallery","text":"Project Corporate video C-fire work in progress... Shooting day 1 - Interview technician. Shooting day 2 - Interview Managing director. … Visuals Project gallery A selection of visuals from the project. Back","description":"","aliases":"cfire c fire bedrijfsfilm bedrijfsvideo corporate interview"},{"title":"Circet Explainer Videos","category":"Motion Project","path":"pages/Projects/Circet.html","headings":"Circet - Explainer Videos.","text":"Project Circet - Explainer Videos. For this project, I created a series of animated explainer videos for Circet, focusing on communicating internal information in a clear, engaging and visually appealing way. I combined custom illustrations, motion graphics and animation with voice-overs and subtitles to transform complex topics into accessible visual stories. Throughout the process, I focused on maintaining a consistent visual style aligned with Circet's corporate identity, while keeping the animations dynamic and easy to follow. This project allowed me to further develop my skills in 2D motion design, visual storytelling and corporate communication, while gaining experience creating professional content for a real company. Video Back","description":"For this project, I created a series of animated explainer videos for Circet, focusing on communicating internal information in a clear, engaging and visually appealing way.","aliases":"circet uitleg uitlegvideo instructievideo animatie telecom"},{"title":"Belgian Red Devils","category":"Branding Project","path":"pages/Projects/Devils.html","headings":"Belgian Red Devils. Project gallery","text":"Project Belgian Red Devils. … … … … Visuals Project gallery A selection of visuals from the project. Back","description":"","aliases":"belgian red devils rode duivels voetbal belgie belgium"},{"title":"FOMU Leporello","category":"Branding Project","path":"pages/Projects/FOMU.html","headings":"FOMU Leporello. Project gallery","text":"Project FOMU Leporello. For this project, I designed a photographic leporello inspired by the work of photographer Yaqine Hamzaoui, as part of a fictional exhibition concept for FOMU Antwerp. The goal was to explore visual contrasts through lines, combining original photography with editorial design. I created a series of photographs focusing on contrasting elements such as composition, perspective and lighting. These images were brought together in a fold-out brochure, using typography, layout and visual hierarchy to create a cohesive narrative that unfolds across the different panels. This project allowed me to further develop my skills in photography, photo editing and editorial design, while exploring how visual storytelling can translate into a physical printed format. Visuals Project gallery A selection of visuals from the project. FOMU project collage FOMU exhibition cover design inspired by Yaqine Hamzaoui The full FOMU leporello unfolded on a table Close-up of typography and photography on the centre panels Detail of contrasting photographs and the leporello folds Back cover of the FOMU leporello with exhibition information Back","description":"For this project, I designed a photographic leporello inspired by the work of photographer Yaqine Hamzaoui, as part of a fictional exhibition concept for FOMU Antwerp. The goal was to explore visual contrasts through lines, combining original photography with editorial design.","aliases":"fomu museum fotografie fotograaf fotoboek vouwfolder brochure leporello yaquine yaqine hamzaoui"},{"title":"Gerry’s Fietsatelier","category":"Motion Project","path":"pages/Projects/Gerry's Fietsatelier.html","headings":"Gerry's Fietsatelier - Social content. SOCIAL REELS. Visibility & safety Woom bike unboxing","text":"Project Gerry's Fietsatelier - Social content. For this project, I created two short-form social media videos for Gerry's Fietsatelier, a local cycling café where visitors can enjoy a drink and have their bicycles serviced or repaired. The goal was to create engaging content that highlights different aspects of the business and connects with its cycling community. The first reel focuses on cycling visibility and safety, using nighttime footage and a visual comparison to demonstrate the importance of reflective clothing and lights. The second reel introduces Woom bicycles to the shop through a short unboxing video, combining behind-the-scenes footage with product shots. Both videos were edited for social media, with attention to pacing, text overlays and visual storytelling. This project allowed me to further develop my skills in filming, editing and short-form content creation, while gaining experience communicating both informative and promotional messages for a real local business. Video SOCIAL REELS. Reel: cycling visibility and safety Reel zichtbaarheid Your browser does not support this video. Reel zichtbaarheid Open the visibility reel . 01 / Social content Visibility & safety Being seen makes the difference. Reel: Woom bike unboxing Woom bike reel Your browser does not support this video. Woom bike reel Open the Woom bike reel . 02 / Social content Woom bike unboxing A new arrival at the atelier. Back","description":"For this project, I created two short-form social media videos for Gerry's Fietsatelier, a local cycling café where visitors can enjoy a drink and have their bicycles serviced or repaired. The goal was to create engaging content that highlights different aspects of the business and connects with its cycling community.","aliases":"gerry gerrys atelier fiets fietsen fietsenwinkel fietscafe reels zichtbaarheid veiligheid woom unboxing"},{"title":"Kasteel van Laarne","category":"Motion Project","path":"pages/Projects/Kasteel van Laarne.html","headings":"Monumentvideo \"Kasteel van Laarne\".","text":"Project Monumentvideo \"Kasteel van Laarne\". For this project, I created a short cinematic video about the Castle of Laarne, focusing on its history, architecture and atmosphere. I combined cinematic footage with a voice-over, music, sound design and motion graphics to tell the story of the castle within a short format. During the project, I focused on shot variation, pacing and creating a balanced mix between visuals and audio. This project allowed me to further develop my skills in filming, editing, storytelling and motion design while creating a cohesive visual story around a historical location. Video Back","description":"For this project, I created a short cinematic video about the Castle of Laarne, focusing on its history, architecture and atmosphere.","aliases":"kasteel laarne monument monumentvideo erfgoed geschiedenis castle"},{"title":"Bliss Boost","category":"Branding Project","path":"pages/Projects/bliss boost.html","headings":"Bliss boost. Project gallery","text":"Project Bliss boost. For this project, I developed a complete brand identity for Bliss Boost, a fictional smoothie brand designed for the European market. The goal was to create a recognizable and approachable identity based on the Caregiver and Everyman brand archetypes, targeting active, family-oriented consumers. Starting with market research and concept development, I translated the brand's values into a cohesive visual identity, including logo design, typography, colors and a consistent graphic style. The identity was then applied across packaging, promotional materials and social media visuals, supported by a brandbook outlining the design guidelines. This project allowed me to further develop my skills in brand strategy, visual identity design and advertising, while learning how to build a consistent brand experience from initial research to final applications. Visuals Project gallery A selection of visuals from the project. Bliss Boost project collage Bliss Boost smoothie packaging in four pastel colours Bliss Boost logo in black and white Bliss Boost brand colour palette and colour codes Bliss Boost advertising poster in an outdoor setting Bliss Boost social media campaign mockups Back","description":"For this project, I developed a complete brand identity for Bliss Boost, a fictional smoothie brand designed for the European market. The goal was to create a recognizable and approachable identity based on the Caregiver and Everyman brand archetypes, targeting active, family-oriented consumers.","aliases":"blissboost smoothie smoothies drankjes blikjes verpakking verpakkingen huisstijl logo kleuren kleurenpalet caregiver everyman"},{"title":"SEAT Ibiza Review","category":"Motion Project","path":"pages/Projects/car review.html","headings":"Affiliate car review.","text":"Project Affiliate car review. This project was a group project at school. We had to make an affiliate car review (a review of a car that includes special links or promotions that earn the creator a commission when viewers take action, like buying or booking.) We made the review about the SEAT Ibiza. My tasks in this project were leader of production, director, editor, VFX & color grading. More detailed, I was the one who helped the cameraman and actor on set with framing and making sure we had every take. In postproduction I was the one who chose all the footage, made the cuts and layed the base for sound design. I also did the whole process of color grading. I made the footage go from a cold, rainy day to a beautiful summery, warm day. My final task in this project were the VFX. I applied all the 2D motion graphics, made the plot twist at the end and created zooms. Video Back","description":"This project was a group project at school. We had to make an affiliate car review (a review of a car that includes special links or promotions that earn the creator a commission when viewers take action, like buying or booking.) We made the review about the SEAT Ibiza.","aliases":"seat ibiza auto autoreview review affiliate autovideo"},{"title":"Edea Ice Skates Commercial","category":"Motion Project","path":"pages/Projects/edea.html","headings":"Edea ice skates sports commercial.","text":"Project Edea ice skates sports commercial. This project was all about completely changing the vibe of an existing video only via VFX. Color grading, background replacement, roto-scoping and transitions all part of this project. First I cut out the walking man via roto-scoping, also known as just masking. After that I replaced the background. This was done via Adobe Photoshop. Here I added the snow. Once that was done, I made the shot feel colder too, via color grading. After that I added the snow. This was done in Adobe After Effects via the particles tool. The last step was creating the transition from the original video to the new one. I did this via a simple wipe effect. Video Back","description":"This project was all about completely changing the vibe of an existing video only via VFX. Color grading, background replacement, roto-scoping and transitions all part of this project.","aliases":"edea schaatsen schaats kunstschaatsen sport commercial"},{"title":"Loop Earplugs × Lokerse Feesten","category":"Motion Project","path":"pages/Projects/loops.html","headings":"loop earplugs x Lokerse Feesten commercial.","text":"Project loop earplugs x Lokerse Feesten commercial. This was the first video I made in school. We had to make an attractive commercial about a sneaker of choice. I went for the classic Nike Air Force 1. The project was focused on storytelling in video but also commercially well thought. The strengths in this video were the color grading and the story itself. First the color grading. Noticed it? Probably not. But the first part of the story was shot in broad daylight and graded to nighttime in Davinci Resolve. The other strength of this video is the storytelling. I added an emotional part to the commercial via realm, which all was supported by audio, color grading and the camera angles. Video Back","description":"This was the first video I made in school. We had to make an attractive commercial about a sneaker of choice. I went for the classic Nike Air Force 1. The project was focused on storytelling in video but also commercially well thought.","aliases":"loop loops oordoppen oordopjes lokerse feesten productanimatie 3d"},{"title":"Nike Air Force 1","category":"Motion Project","path":"pages/Projects/sneaker.html","headings":"Sneaker commercial.","text":"Project Sneaker commercial. This was the first video I made in school. We had to make an attractive commercial about a sneaker of choice. I went for the classic Nike Air Force 1. The project was focused on storytelling in video but also commercially well thought. The strengths in this video were the color grading and the story itself. First the color grading. Noticed it? Probably not. But the first part of the story was shot in broad daylight and graded to nighttime in Davinci Resolve. The other strength of this video is the storytelling. I added an emotional part to the commercial via realm, which all was supported by audio, color grading and the camera angles. Video Back","description":"This was the first video I made in school. We had to make an attractive commercial about a sneaker of choice. I went for the classic Nike Air Force 1. The project was focused on storytelling in video but also commercially well thought.","aliases":"nike af1 air force sneaker sneakers schoenen commercial productvideo"},{"title":"Tahiti Dynamic Machine","category":"Motion Project","path":"pages/Projects/tahiti.html","headings":"tahiti soap dynamic machine.","text":"Project tahiti soap dynamic machine. … … … Video Back","description":"","aliases":"tahiti zeep soap dynamische machine rigid body cinema 4d"},{"title":"A Walk in the Park","category":"Motion Project","path":"pages/Projects/walk in the park.html","headings":"A walk in the park.","text":"Project A walk in the park. For this assignment I designed, rigged and animated a custom character for a 15-second commercial celebrating Park Spoor Noord. I also designed the whole environment, in style & colors of the Park Spoor Noord logo. From concept and illustration to character rigging, animation and sound design, the project focused on creating a playful story while showcasing professional 2D motion workflows. Video Back","description":"For this assignment I designed, rigged and animated a custom character for a 15-second commercial celebrating Park Spoor Noord. I also designed the whole environment, in style & colors of the Park Spoor Noord logo.","aliases":"walk park wandeling wandelen 2d illustratie animatie"},{"title":"Winter Wonderland","category":"VFX Project","path":"pages/Projects/winterwonderland.html","headings":"Winterwonderland.","text":"Project Winterwonderland. This project was all about completely changing the vibe of an existing video only via VFX. Color grading, background replacement, roto-scoping and transitions all part of this project. First I cut out the walking man via roto-scoping, also known as just masking. After that I replaced the background. This was done via Adobe Photoshop. Here I added the snow. Once that was done, I made the shot feel colder too, via color grading. After that I added the snow. This was done in Adobe After Effects via the particles tool. The last step was creating the transition from the original video to the new one. I did this via a simple wipe effect. Video Back","description":"This project was all about completely changing the vibe of an existing video only via VFX. Color grading, background replacement, roto-scoping and transitions all part of this project.","aliases":"winter wonderland sneeuw seizoen vfx compositing"},{"title":"Projects","category":"Page","path":"pages/Projects.html","headings":"PROJECTS IN MOTION AND BRANDING . Motion Design & Video Branding & Visual Identity","text":"Projects PROJECTS IN MOTION AND BRANDING . From commercials and motion graphics to branding and digital design, each project is built around storytelling, precision and clean visual direction. Motion Motion Design & Video Editing, VFX, 2D motion, compositing and 3D visuals. View Motion Projects Branding Branding & Visual Identity Layout, typography, concept and visual identity design. View Branding Projects","description":"From commercials and motion graphics to branding and digital design, each project is built around storytelling, precision and clean visual direction.","aliases":"projecten werk portfolio projectenoverzicht"},{"title":"About","category":"Page","path":"pages/about.html","headings":"Clean visuals. Detail-focused execution. Interested in working together ?","text":"About me Clean visuals. Detail-focused execution. I create visual work that feels modern, cinematic and purpose-driven. From motion graphics and editing to branding and digital design, I focus on creating visuals that are both technically refined and visually clear. View Projects SNS Design logo Who I am I am Sieben and I am currently studying Graphic & Digital Media at AP Hogeschool Antwerp. I’m a multidisciplinary creative focused on motion, video and digital design. By combining multiple creative disciplines into one workflow, I’m able to create projects that feel visually consistent, efficient and technically refined from start to finish. Project experience Throughout my studies and personal work, I’ve created projects ranging from cinematic commercials and affiliate reviews to branding concepts, motion pieces and digital layouts. My portfolio includes motion-driven commercials, visual identity work, affiliate content, branding concepts and experimental digital projects focused on storytelling and visual impact. Work ethic I like being closely involved throughout the entire creative process, from concept development to final delivery. By combining efficiency, flexibility and attention to detail, I aim to create work that feels both visually strong and professionally executed. I’m someone who always pushes projects further than expected, both creatively and technically. I focus on delivering clean visuals, efficient workflows and a collaborative experience throughout every stage of production. Strengths Cinematic video & editing Branding systems & layouts 2D motion graphics & VFX Social media visuals Web development Let’s connect Interested in working together ? Explore my projects or get in touch for collaborations, freelance work or creative opportunities. View Projects Contact Me","description":"I create visual work that feels modern, cinematic and purpose-driven.","aliases":"over mij sieben nopens opleiding ervaring vaardigheden software tools"},{"title":"Branding Projects","category":"Category","path":"pages/branding.html","headings":"Selected work in branding . FOMU Bliss Boost","text":"Branding Projects Selected work in branding . This page gives an overview of all the branding projects that I have made in the past. From branding concepts to visual identity. Projects FOMU A project focused on design for both digital and physical userflow. View Project Bliss Boost A project focused on creating a visual style and branding for a conceptual soda can brand. View Project Back","description":"This page gives an overview of all the branding projects that I have made in the past. From branding concepts to visual identity.","aliases":"branding huisstijl grafisch ontwerp logo visuele identiteit"},{"title":"Contact","category":"Page","path":"pages/contact.html","headings":"Let’s bring your vision to life. Contact details Where to find me Send me an e-mail","text":"Contact Let’s bring your vision to life. Interested in working together, collaborating on a project or just getting in touch? Feel free to reach out. I’m open to freelance work, creative collaborations and new opportunities. SNS Design logo Get in touch Contact details Email contact@snsdesign.org Phone +32 473 49 72 04 Message Send message Availability Open for freelance, collaborations and creative opportunities Online Where to find me LinkedIn Sieben Nopens Instagram sieben.ns14 YouTube snsdesign E-Mail Send me an e-mail Use the form below to quickly get in touch.","description":"Interested in working together, collaborating on a project or just getting in touch? Feel free to reach out. I’m open to freelance work, creative collaborations and new opportunities.","aliases":"contact contacteren email e mail telefoon bellen freelance samenwerken inhuren"}];
+    /* SEARCH_INDEX_END */
+    const scriptURL = [...document.scripts].find(script => /\/scroll-fade\.js(?:[?#]|$)/.test(script.src))?.src;
+    const rootURL = new URL('.', scriptURL || document.baseURI);
+    const normalize = text => String(text).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[’'`]/g,'').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
+    const stopWords = new Set(['de','het','een','van','voor','en','the','a','an','of','for','and','in','on','to']);
+    const pages = searchRecords.map(page => ({...page,
+        titleKey:normalize(page.title),
+        aliasKey:normalize(page.aliases),
+        headingKey:normalize(page.headings),
+        contentKey:normalize(page.text),
+        categoryKey:normalize(page.category),
+        url:new URL(page.path.split('/').map(encodeURIComponent).join('/'),rootURL).href
+    }));
+    let boxNumber = 0;
+    const boxes = new WeakMap();
+    const close = input => {
+        boxes.get(input)?.classList.remove('is-visible');
+        input.setAttribute('aria-expanded','false');
+    };
+    function score(page,query,words){
+        const all = `${page.titleKey} ${page.aliasKey} ${page.headingKey} ${page.contentKey} ${page.categoryKey}`;
+        if(!words.every(word=>all.includes(word)))return 0;
+        let points=page.titleKey===query ? 250:page.titleKey.includes(query) ? 140:0;
+        for(const word of words){
+            points+=page.titleKey.includes(word) ? 65:page.aliasKey.includes(word) ? 35:page.headingKey.includes(word) ? 25:8;
+        }
+        return points;
     }
-
-    const basePath = getBasePath();
-
-    const sitePages = [
-        {
-            title: "Home",
-            category: "Page",
-            keywords: "home portfolio graphic design motion design showreel services featured projects",
-            url: `${basePath}index.html`
-        },
-        {
-            title: "Projects",
-            category: "Page",
-            keywords: "projects selected work motion branding video visual identity portfolio",
-            url: `${basePath}pages/Projects.html`
-        },
-        {
-            title: "Motion Projects",
-            category: "Category",
-            keywords: "motion video editing vfx commercials post production color grading showreel",
-            url: `${basePath}pages/Motion.html`
-        },
-        {
-            title: "Branding Projects",
-            category: "Category",
-            keywords: "branding visual identity layout design social media digital design fomu",
-            url: `${basePath}pages/branding.html`
-        },
-        {
-            title: "About",
-            category: "Page",
-            keywords: "about sieben graphic motion designer skills tools experience workflow",
-            url: `${basePath}pages/about.html`
-        },
-        {
-            title: "Contact",
-            category: "Page",
-            keywords: "contact email phone message freelance collaboration hire",
-            url: `${basePath}pages/contact.html`
-        }
-    ];
-
-    const projectPages = [
-        {
-            title: "SEAT Ibiza Review",
-            category: "Motion Project",
-            keywords: "seat ibiza affiliate car review video editing color grading vfx commercial automotive storytelling",
-            url: `${basePath}pages/Projects/car review.html`
-        },
-        {
-            title: "Sneaker Commercial",
-            category: "Motion Project",
-            keywords: "sneaker commercial nike product video motion design cinematic editing advertising",
-            url: `${basePath}pages/Projects/sneaker.html`
-        },
-        {
-            title: "FOMU",
-            category: "Branding Project",
-            keywords: "fomu branding layout visual identity graphic design museum photography editorial",
-            url: `${basePath}pages/Projects/FOMU.html`
-        },
-        {
-            title: "C-fire Corporate Video",
-            category: "Motion Project",
-            keywords: "c-fire corporate video company video interview motion graphics lower thirds color grading",
-            url: `${basePath}pages/Projects/C-fire.html`
-        },
-        {
-            title: "Loop Earplugs",
-            category: "Motion Project",
-            keywords: "loop earplugs lokerse feesten 3d product animation sound waves commercial motion",
-            url: `${basePath}pages/Projects/loops.html`
-        },
-        {
-            title: "tahiti dynamic machine",
-            category: "Motion Project",
-            keywords: "dynamic machine 3D 3d tahiti cinema 4D forces rigid body dynamics ",
-            url: `${basePath}pages/Projects/tahiti.html`
-        },
-        {
-            title: "Apple Watch Commercial",
-            category: "Motion Project",
-            keywords: "apple watch hi tech commercial smartwatch product video cinematic motion",
-            url: `${basePath}pages/Projects/apple-watch.html`
-        },
-        {
-            title: "AR sports watch",
-            category: "Motion Project",
-            keywords: "AR sports watch vfx ",
-            url: `${basePath}pages/Projects/AR.html`
-        },
-        {
-            title: "Edea ice skates sports commercial",
-            category: "Motion Project",
-            keywords: "edea ice skates sports commercial ",
-            url: `${basePath}pages/Projects/edea.html`
-        },
-        {
-            title: "Winter Wonderland",
-            category: "VFX Project",
-            keywords: "winter wonderland vfx snow compositing color grading matte painting before after",
-            url: `${basePath}pages/Projects/winterwonderland.html`
-        },
-        {
-            title: "SNS Design Website",
-            category: "Web Project",
-            keywords: "website web development portfolio html css liquid glass responsive design",
-            url: `${basePath}pages/Projects/website.html`
-        }
-    ];
-
-    const searchPages = [...sitePages, ...projectPages];
-
-    function createResultsBox(input){
-        let box = input.parentElement.querySelector(".search-results-box");
-
-        if (!box) {
-            box = document.createElement("div");
-            box.className = "search-results-box";
-            input.parentElement.appendChild(box);
-        }
-
-        return box;
-    }
-
-    function scoreResult(page, query){
-        const searchableText = `${page.title} ${page.category} ${page.keywords}`.toLowerCase();
-        const title = page.title.toLowerCase();
-
-        if (title === query) return 100;
-        if (title.includes(query)) return 80;
-        if (searchableText.includes(query)) return 50;
-
-        const words = query.split(" ").filter(Boolean);
-        return words.reduce((score, word) => {
-            return searchableText.includes(word) ? score + 10 : score;
-        }, 0);
-    }
-
-    function renderResults(input){
-        const query = input.value.trim().toLowerCase();
-        const box = createResultsBox(input);
-
-        if (!query) {
-            box.classList.remove("is-visible");
-            box.innerHTML = "";
-            return;
-        }
-
-        const results = searchPages
-            .map((page) => ({ ...page, score: scoreResult(page, query) }))
-            .filter((page) => page.score > 0)
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 6);
-
-        if (!results.length) {
-            box.innerHTML = `
-                <div class="search-result-empty">
-                    No results found.
-                </div>
-            `;
-            box.classList.add("is-visible");
-            return;
-        }
-
-        box.innerHTML = results.map((page) => `
-            <a class="search-result-item" href="${page.url}">
-                <span>${page.category}</span>
-                <strong>${page.title}</strong>
-            </a>
-        `).join("");
-
-        box.classList.add("is-visible");
-    }
-
-    function setupSearchInput(input){
-        input.setAttribute("autocomplete", "off");
-
-        input.addEventListener("input", () => renderResults(input));
-
-        input.addEventListener("keydown", (event) => {
-            const box = createResultsBox(input);
-            const firstResult = box.querySelector(".search-result-item");
-
-            if (event.key === "Enter") {
-                event.preventDefault();
-
-                if (firstResult) {
-                    window.location.href = firstResult.href;
-                }
-            }
-
-            if (event.key === "Escape") {
-                input.value = "";
-                box.classList.remove("is-visible");
-                box.innerHTML = "";
-            }
+    function render(input,expanded=false){
+        const box=boxes.get(input);const query=normalize(input.value);
+        box.replaceChildren();
+        if(!query){close(input);return;}
+        const tokens=query.split(' ');const useful=tokens.filter(word=>!stopWords.has(word));const words=useful.length ? useful:tokens;
+        const results=pages.map(page=>({page,score:score(page,query,words)})).filter(result=>result.score>0).sort((a,b)=>b.score-a.score||a.page.title.localeCompare(b.page.title));
+        const status=document.createElement('div');status.className='search-results-status';status.setAttribute('role','status');
+        status.textContent=results.length ? `${results.length} ${results.length===1 ? 'result':'results'}`:'No results found. Try a project name or topic.';box.append(status);
+        const shown=expanded ? results:results.slice(0,8);
+        shown.forEach(({page})=>{
+            const link=document.createElement('a');link.className='search-result-item';link.href=page.url;
+            const category=document.createElement('span');category.textContent=page.category;
+            const title=document.createElement('strong');title.textContent=page.title;link.append(category,title);
+            if(page.description){const description=document.createElement('p');description.className='search-result-description';description.textContent=page.description.length>145 ? page.description.slice(0,142).trimEnd()+'…':page.description;link.append(description);}
+            box.append(link);
         });
-
-        document.addEventListener("click", (event) => {
-            const box = createResultsBox(input);
-
-            if (!input.contains(event.target) && !box.contains(event.target)) {
-                box.classList.remove("is-visible");
-            }
-        });
+        if(results.length>shown.length){
+            const more=document.createElement('button');more.type='button';more.className='search-results-more';more.textContent=`Show all ${results.length} results`;
+            more.addEventListener('click',()=>{render(input,true);boxes.get(input).querySelectorAll('.search-result-item')[shown.length]?.focus();});box.append(more);
+        }
+        box.classList.add('is-visible');input.setAttribute('aria-expanded','true');
     }
-
-    const searchInputs = document.querySelectorAll(
-        "#site-search-input, .site-search input, .mobile-menu-search"
-    );
-
-    searchInputs.forEach(setupSearchInput);
+    const inputs=[...document.querySelectorAll('#site-search-input, .site-search input, .mobile-menu-search')];
+    inputs.forEach(input=>{
+        input.setAttribute('autocomplete','off');input.setAttribute('aria-expanded','false');
+        if(!input.hasAttribute('aria-label'))input.setAttribute('aria-label','Search the website');
+        const box=document.createElement('div');box.className='search-results-box';box.id=`site-search-results-${++boxNumber}`;box.setAttribute('aria-label','Search results');
+        input.parentElement.append(box);boxes.set(input,box);input.setAttribute('aria-controls',box.id);
+        input.addEventListener('input',()=>render(input));
+        input.addEventListener('focus',()=>{if(normalize(input.value))render(input);});
+        input.addEventListener('keydown',event=>{
+            if(event.key==='Enter'){event.preventDefault();const first=box.querySelector('.search-result-item');if(first)location.href=first.href;}
+            if(event.key==='ArrowDown'){event.preventDefault();box.querySelector('.search-result-item')?.focus();}
+            if(event.key==='Escape'){input.value='';close(input);}
+        });
+        box.addEventListener('keydown',event=>{
+            const controls=[...box.querySelectorAll('a,button')];const index=controls.indexOf(document.activeElement);
+            if(event.key==='ArrowDown'||event.key==='ArrowUp'){
+                event.preventDefault();const direction=event.key==='ArrowDown' ? 1:-1;const next=index+direction;
+                if(next<0)input.focus();else controls[Math.min(next,controls.length-1)]?.focus();
+            }
+            if(event.key==='Escape'){event.preventDefault();input.focus();close(input);}
+        });
+    });
+    document.addEventListener('click',event=>inputs.forEach(input=>{if(!input.contains(event.target)&&!boxes.get(input).contains(event.target))close(input);}));
 });
 
 window.addEventListener("scroll", () => {
