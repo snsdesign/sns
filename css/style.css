@@ -1904,3 +1904,6 @@ body:not([data-page="home"]) .projects-grid .project-info a { margin-top:auto; }
     .mobile-menu-panel .search-result-item strong { font-size:1.5rem; font-weight:800; }
     .mobile-menu-panel .search-result-description { font-size:1.2rem; line-height:1.45; }
 }
+
+/* ANT featured cover fills the 16:9 image area without letterboxing. */
+body[data-page="home"] .featured-projects .project-card > img[src="images/ant-kit-preview.jpg"] { object-fit:cover; object-position:center; }
