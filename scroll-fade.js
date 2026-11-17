@@ -373,6 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const counter = controls?.querySelector('.gallery-count');
     const autoplayToggle = controls?.querySelector('.gallery-autoplay');
     let galleryVisible = false, galleryPaused = false, manualTarget = null;
+    let swipe = null, suppressCardClickUntil = 0;
     const collage = document.querySelector('.hero-collage');
     const collageCards = [...(collage?.querySelectorAll('.hero-collage-item') || [])];
     let collageVisible = true;
@@ -477,10 +478,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // Re-check on interaction as well as media events (some browsers defer those while focused).
         if(story && controls && originalCards.length>1 && story.classList.contains('is-gallery')===reduced.matches)configure();
         const dt=Math.min(64,lastTime ? time-lastTime:16);lastTime=time;
-        const ease=1-Math.exp(-dt/115);
+        const ease=1-Math.exp(-dt/(innerWidth<=900 ? 170:115));
         let unsettled=false;
         if(story?.classList.contains('is-gallery')){
-            if(manualTarget!==null){
+            if(swipe?.locked){
+                // Drag position follows the finger; snapping resumes on release.
+            }else if(manualTarget!==null){
                 current=paused ? manualTarget:current+(manualTarget-current)*ease;
                 if(Math.abs(manualTarget-current)<.0005){current=manualTarget;manualTarget=null;}
                 else unsettled=true;
@@ -588,6 +591,53 @@ document.addEventListener("DOMContentLoaded", () => {
         }else manualTarget=index;
         wake();
     }
+    const galleryViewport = story?.querySelector('.projects-viewport');
+    function sizeGalleryCards() {
+        if (!story?.classList.contains('is-gallery')) return;
+        story.style.removeProperty('--gallery-card-height');
+        const height = Math.ceil(Math.max(...cards.map(card => card.offsetHeight)));
+        story.style.setProperty('--gallery-card-height', `${height}px`);
+    }
+    addEventListener('resize', () => requestAnimationFrame(sizeGalleryCards), {passive:true});
+    document.fonts?.ready.then(sizeGalleryCards);
+    requestAnimationFrame(sizeGalleryCards);
+    reduced.addEventListener('change', () => requestAnimationFrame(sizeGalleryCards));
+    galleryViewport?.addEventListener('pointerdown', event => {
+        if (innerWidth > 900 || event.pointerType === 'mouse' || !story.classList.contains('is-gallery')) return;
+        swipe = {id:event.pointerId,x:event.clientX,y:event.clientY,origin:current,locked:false,lastX:event.clientX,lastTime:performance.now(),velocity:0};
+    });
+    galleryViewport?.addEventListener('pointermove', event => {
+        if (!swipe || event.pointerId !== swipe.id) return;
+        const dx = event.clientX - swipe.x, dy = event.clientY - swipe.y;
+        if (!swipe.locked) {
+            if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) {swipe=null;return;}
+            if (Math.abs(dx) < 8 || Math.abs(dx) <= Math.abs(dy)) return;
+            swipe.locked=true;manualTarget=null;
+            galleryViewport.setPointerCapture(event.pointerId);
+        }
+        const now=performance.now(), elapsed=Math.max(1,now-swipe.lastTime);
+        swipe.velocity=(event.clientX-swipe.lastX)/elapsed;
+        swipe.lastX=event.clientX;swipe.lastTime=now;
+        current=swipe.origin-dx/(Math.min(innerWidth*.84,440)+20);
+        suppressCardClickUntil=now+400;
+        drawGallery();wake();
+    });
+    const finishSwipe = event => {
+        if (!swipe || event.pointerId !== swipe.id) return;
+        const state=swipe;swipe=null;
+        if(state.locked) {
+            const velocity=performance.now()-state.lastTime<100?state.velocity:0;
+            const step=Math.min(innerWidth*.84,440)+20;
+            goTo(Math.round(current-velocity*160/step));
+            suppressCardClickUntil=performance.now()+400;
+        }
+        if(galleryViewport.hasPointerCapture(event.pointerId))galleryViewport.releasePointerCapture(event.pointerId);
+    };
+    galleryViewport?.addEventListener('pointerup', finishSwipe);
+    galleryViewport?.addEventListener('pointercancel', finishSwipe);
+    galleryViewport?.addEventListener('click', event => {
+        if(performance.now()<suppressCardClickUntil){event.preventDefault();event.stopPropagation();}
+    },true);
     previous?.addEventListener('click',()=>goTo(Math.round(current)-1));
     next?.addEventListener('click',()=>goTo(Math.round(current)+1));
     autoplayToggle?.addEventListener('click',()=>{
