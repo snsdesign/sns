@@ -1997,3 +1997,46 @@ body[data-page="home"] .featured-projects .project-card > img[src="images/ant-ki
     .mobile-menu-panel .search-result-item {grid-template-rows:auto auto auto;grid-auto-rows:max-content;}
     .mobile-menu-panel .search-result-description {display:block;}
 }
+/* Equal Selected Work cards: height measured from the largest content at each width. */
+.is-gallery .project-card,.is-gallery .project-card:hover {height:var(--gallery-card-height,auto);}
+.is-gallery .project-info {flex:1 1 auto;min-height:0;}
+.is-gallery .project-info a {margin-top:auto;}
+/* Compact closing invitation and logo, without a fixed-height empty visual. */
+.hero:has(.hero-visual > img[src$="logo white.png"]) {min-height:0;padding-block:clamp(3rem,5vw,6rem);gap:2.4rem;}
+.hero:has(.hero-visual > img[src$="logo white.png"]) .hero-visual {height:auto;min-height:0;}
+@media(max-width:900px) {
+    h1,h2,h3,h4,.hero h1,.projects-hero h1,.about-hero h1,.contact-hero h1,.section-heading h2,.project-info h3,.service-card h3 {overflow-wrap:normal;word-break:normal;hyphens:none;text-wrap:pretty;}
+    .hero h1,.projects-hero h1,.about-hero h1,.contact-hero h1 {font-size:clamp(2.8rem,8.8vw,5.6rem);line-height:1;}
+    .section-heading h2,.cta-content h2,.is-gallery .section-heading h2 {font-size:clamp(2.8rem,9.2vw,4rem);line-height:1;}
+    .hero-text,.projects-hero-text,.about-intro,.contact-intro,.cta-content p,.category-card-content p {font-size:1.5rem;line-height:1.5;}
+    .hero {gap:2.4rem;padding-block:3rem;}
+    .hero-buttons>a {flex:1 1 auto;font-size:1.1rem;padding-inline:1.4rem;}
+    .service-card p,.project-info p,.featured-projects .project-info p,.is-gallery .project-info p {font-size:1.35rem;line-height:1.5;}
+    .service-card h3,.project-info h3,.is-gallery .project-info h3 {font-size:2.1rem;line-height:1.08;}
+    .services-grid .service-card,.project-info {padding:1.6rem;}
+    .project-visuals-section .section-heading p,.ant-gallery .ant-label p:not(.section-kicker),.ant-digital-copy p {font-size:1.5rem;line-height:1.5;}
+    .hero:has(.hero-visual > img[src$="logo white.png"]) .hero-visual img {width:min(75%,320px);max-height:100px;object-fit:contain;}
+    .is-gallery .projects-viewport {touch-action:pan-y pinch-zoom;}
+    .is-gallery .project-card {user-select:none;-webkit-user-select:none;}
+    .is-gallery .project-card img {-webkit-user-drag:none;}
+    .is-gallery .project-info {min-height:0;padding:1.6rem;gap:1rem;}
+    .is-gallery .project-info a {margin-top:auto;}
+    .is-gallery .project-card,.is-gallery .project-card:hover {top:49%;}
+    .is-gallery .projects-stage {height:680px;}
+    .hero.has-scroll-motion h1 .kinetic-word {translate:calc(var(--hero-travel,0px) * var(--word-direction,1) * .28) 0;}
+    .hero-collage .hero-collage-item {animation-duration:10s;}
+}
+@media(max-width:360px) {
+    .hero h1,.projects-hero h1,.about-hero h1,.contact-hero h1 {font-size:2.8rem;}
+    .project-info h3,.is-gallery .project-info h3 {font-size:1.9rem;}
+}
+@media(max-width:900px) {
+    .is-gallery .projects-stage {height:calc(var(--gallery-card-height,420px) + 330px);}
+    .is-gallery .project-card,.is-gallery .project-card:hover {top:calc(140px + var(--gallery-card-height,420px) * .5);}
+}
+/* The accessible static/reduced-motion gallery keeps equal cards too. */
+.featured-projects:not(.is-gallery) .projects-grid {grid-auto-rows:1fr;}
+.featured-projects:not(.is-gallery) .project-plane {display:flex;min-width:0;}
+.featured-projects:not(.is-gallery) .project-plane:has(> .is-loop-copy) {display:none;}
+.featured-projects:not(.is-gallery) .project-card {height:100%;width:100%;}
+.featured-projects:not(.is-gallery) .project-info {flex:1;}
