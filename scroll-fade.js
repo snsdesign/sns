@@ -128,21 +128,44 @@ const links = [
     document.body.appendChild(panel);
     document.body.appendChild(toggle);
 
-    const closeMenu = () => {
-        toggle.classList.remove("is-open");
-        panel.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
+    panel.id = 'mobile-site-menu';
+    panel.inert = true;
+    panel.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-controls', panel.id);
+    const setMenu = (open, returnFocus = false) => {
+        toggle.classList.toggle('is-open', open);
+        panel.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        panel.setAttribute('aria-hidden', String(!open));
+        panel.inert = !open;
+        if (returnFocus) toggle.focus({preventScroll:true});
     };
-
-    toggle.addEventListener("click", () => {
-        toggle.classList.toggle("is-open");
-        panel.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", panel.classList.contains("is-open"));
+    toggle.addEventListener('click', () => setMenu(!panel.classList.contains('is-open')));
+    panel.addEventListener('click', event => {
+        if (event.target.closest('a')) setMenu(false);
     });
-
-    panel.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", closeMenu);
+    document.addEventListener('pointerdown', event => {
+        if (!panel.contains(event.target) && !toggle.contains(event.target)) setMenu(false);
     });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && panel.classList.contains('is-open')) {
+            setMenu(false, true);
+        }
+        if (event.key === 'Tab' && panel.classList.contains('is-open')) {
+            const items = [...panel.querySelectorAll('a, input, button')].filter(el => el.getClientRects().length);
+            if (document.activeElement === toggle && !event.shiftKey) {
+                event.preventDefault();items[0]?.focus();
+            } else if (document.activeElement === items[0] && event.shiftKey) {
+                event.preventDefault();toggle.focus();
+            } else if (document.activeElement === items.at(-1) && !event.shiftKey) {
+                event.preventDefault();toggle.focus();
+            }
+        }
+    });
+    const mobileViewport = matchMedia('(max-width:1024px)');
+    mobileViewport.addEventListener('change', () => setMenu(false));
+
 });
 
 /* Website search: generated page content, immediate results, no external service. */
