@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const setHidden = (item, delay) => {
         item.style.opacity = "0";
-        item.style.transform = "translateY(32px)";
+        if (window.innerWidth > 900) item.style.transform = "translateY(32px)";
         item.style.transition = `opacity 0.8s ease ${delay}s, transform 0.8s ease ${delay}s`;
     };
 
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-/* Mobile floating liquid glass menu */
+/* Mobile header and navigation */
 document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector(".mobile-menu-toggle")) return;
 
@@ -101,16 +101,13 @@ document.addEventListener("DOMContentLoaded", () => {
     panel.setAttribute("aria-label", "Mobile menu");
 
     const path = window.location.pathname;
-const isProjectDetailPage = path.includes("/pages/Projects/");
-const isPagesPage = path.includes("/pages/");
-const basePath = isProjectDetailPage ? "../../" : isPagesPage ? "../" : "";
-
-const links = [
-    ["home", `${basePath}index.html`],
-    ["projects", `${basePath}pages/Projects.html`],
-    ["about", `${basePath}pages/about.html`],
-    ["contact", `${basePath}pages/contact.html`]
-];
+    const basePath = path.includes("/pages/Projects/") ? "../../" : path.includes("/pages/") ? "../" : "";
+    const links = [
+        ["home", `${basePath}index.html`],
+        ["projects", `${basePath}pages/Projects.html`],
+        ["about", `${basePath}pages/about.html`],
+        ["contact", `${basePath}pages/contact.html`]
+    ];
 
     links.forEach(([label, href]) => {
         const a = document.createElement("a");
@@ -125,8 +122,53 @@ const links = [
     search.placeholder = "search...";
     panel.appendChild(search);
 
-    document.body.appendChild(panel);
-    document.body.appendChild(toggle);
+    const hint = document.createElement("p");
+    hint.className = "mobile-menu-hint";
+    hint.hidden = true;
+    hint.textContent = "Swipe the menu button across to switch sides.";
+    panel.prepend(hint);
+
+    const swapSide = document.createElement("button");
+    swapSide.type = "button";
+    swapSide.className = "mobile-menu-swap";
+    panel.append(swapSide);
+
+    const bar = document.createElement("div");
+    bar.className = "mobile-header";
+    const brand = document.querySelector("header #logo a")?.cloneNode(true);
+    if (brand) {
+        brand.classList.add("mobile-home");
+        brand.setAttribute("aria-label", "Home");
+        bar.append(brand);
+    }
+    bar.append(toggle, panel);
+    document.body.prepend(bar);
+
+    const sideKey = "snsdesign.menu-side";
+    const hintKey = "snsdesign.menu-hint-seen";
+    let side = "right";
+    let hintSeen = false;
+    try {
+        if (localStorage.getItem(sideKey) === "left") side = "left";
+        hintSeen = localStorage.getItem(hintKey) === "1";
+    } catch {
+        // The menu still works when the browser blocks storage.
+    }
+
+    const dock = nextSide => {
+        side = nextSide;
+        bar.classList.toggle("is-left", side === "left");
+        swapSide.textContent = side === "left" ? "Move menu to right" : "Move menu to left";
+    };
+    const savePreference = (key, value) => {
+        try { localStorage.setItem(key, value); } catch {}
+    };
+    const moveMenu = nextSide => {
+        dock(nextSide);
+        savePreference(sideKey, side);
+    };
+    dock(side);
+    swapSide.addEventListener("click", () => moveMenu(side === "left" ? "right" : "left"));
 
     panel.id = 'mobile-site-menu';
     panel.inert = true;
@@ -139,9 +181,56 @@ const links = [
         toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         panel.setAttribute('aria-hidden', String(!open));
         panel.inert = !open;
+        if (open && !hintSeen) {
+            hint.hidden = false;
+            hintSeen = true;
+            savePreference(hintKey, "1");
+        } else if (!open) {
+            hint.hidden = true;
+        }
         if (returnFocus) toggle.focus({preventScroll:true});
     };
-    toggle.addEventListener('click', () => setMenu(!panel.classList.contains('is-open')));
+    let drag = null;
+    let suppressClick = false;
+    toggle.addEventListener("pointerdown", event => {
+        if (!event.isPrimary || event.button !== 0) return;
+        suppressClick = false;
+        const box = toggle.getBoundingClientRect();
+        drag = {id: event.pointerId, x: event.clientX, left: box.left, right: box.right, moved: false};
+    });
+    toggle.addEventListener("pointermove", event => {
+        if (drag?.id !== event.pointerId) return;
+        const dx = event.clientX - drag.x;
+        if (!drag.moved && Math.abs(dx) < 8) return;
+        if (!drag.moved) {
+            toggle.setPointerCapture(event.pointerId);
+            drag.moved = true;
+        }
+        const shift = Math.max(8 - drag.left, Math.min(dx, document.documentElement.clientWidth - 8 - drag.right));
+        toggle.style.setProperty("--menu-drag-x", `${shift}px`);
+    });
+    const finishDrag = event => {
+        if (drag?.id !== event.pointerId) return;
+        if (drag.moved) {
+            suppressClick = true;
+            const dx = event.clientX - drag.x;
+            if (event.type === "pointerup" && Math.abs(dx) >= 32) {
+                moveMenu(dx < 0 ? "left" : "right");
+            }
+        }
+        toggle.style.removeProperty("--menu-drag-x");
+        drag = null;
+    };
+    toggle.addEventListener("pointerup", finishDrag);
+    toggle.addEventListener("pointercancel", finishDrag);
+    toggle.addEventListener("lostpointercapture", finishDrag);
+    toggle.addEventListener("click", event => {
+        if (suppressClick && event.detail > 0) {
+            suppressClick = false;
+            return;
+        }
+        setMenu(!panel.classList.contains("is-open"));
+    });
     panel.addEventListener('click', event => {
         if (event.target.closest('a')) setMenu(false);
     });
@@ -453,9 +542,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     function wake(){if(!frame&&!document.hidden)frame=requestAnimationFrame(render);}
+    let mobileGalleryStep = 440;
     function drawGallery(){
         const wide=innerWidth>900;
-        const spacing=wide ? Math.min(innerWidth*.245,370) : Math.min(innerWidth*.84,440)+20;
+        const spacing=wide ? Math.min(innerWidth*.245,370) : mobileGalleryStep;
         cards.forEach((card,index)=>{
             const count=cards.length;
             const d=((index-current+count/2)%count+count)%count-count/2;
@@ -580,6 +670,7 @@ document.addEventListener("DOMContentLoaded", () => {
             headings.forEach(h=>{h.classList.add('is-revealed');h.style.removeProperty('--heading-drift');headingProgress.delete(h);});
             document.querySelectorAll('[style*="opacity: 0"]').forEach(el=>{el.style.opacity='1';el.style.transform='none';});
         }
+        if (enabled) sizeGalleryCards();
         wake();
     }
     function goTo(index,instant=false){
@@ -596,7 +687,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!story?.classList.contains('is-gallery')) return;
         story.style.removeProperty('--gallery-card-height');
         const height = Math.ceil(Math.max(...cards.map(card => card.offsetHeight)));
+        mobileGalleryStep = originalCards[0].offsetWidth + 20;
         story.style.setProperty('--gallery-card-height', `${height}px`);
+        drawGallery();
     }
     addEventListener('resize', () => requestAnimationFrame(sizeGalleryCards), {passive:true});
     document.fonts?.ready.then(sizeGalleryCards);
@@ -618,7 +711,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const now=performance.now(), elapsed=Math.max(1,now-swipe.lastTime);
         swipe.velocity=(event.clientX-swipe.lastX)/elapsed;
         swipe.lastX=event.clientX;swipe.lastTime=now;
-        current=swipe.origin-dx/(Math.min(innerWidth*.84,440)+20);
+        current=swipe.origin-dx/mobileGalleryStep;
         suppressCardClickUntil=now+400;
         drawGallery();wake();
     });
@@ -627,7 +720,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const state=swipe;swipe=null;
         if(state.locked) {
             const velocity=performance.now()-state.lastTime<100?state.velocity:0;
-            const step=Math.min(innerWidth*.84,440)+20;
+            const step=mobileGalleryStep;
             goTo(Math.round(current-velocity*160/step));
             suppressCardClickUntil=performance.now()+400;
         }

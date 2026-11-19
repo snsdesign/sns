@@ -41,3 +41,18 @@
 
 .ant-digital-preview {display:block;border-bottom:1px solid var(--line);}
 .ant-digital-preview img {display:block;width:100%;height:auto;object-fit:contain;filter:none;}
+
+.ant-video-block {min-width:0;}
+
+@media (max-width:900px) {
+    .ant-gallery .section-heading,.ant-digital-copy {padding:1.25rem;}
+    .ant-label h3,.ant-digital-copy h4 {font-size:1.25rem;line-height:1.2;}
+    .ant-label p:not(.section-kicker),.ant-digital-copy p {font-size:1rem;line-height:1.55;}
+    .ant-digital-copy a {display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding-top:0;font-size:.875rem;}
+    .ant-lightbox button,.ant-lightbox figcaption {font-size:1rem;}
+}
+
+@media (max-width:600px) {
+    .ant-composition {gap:1rem;}
+    .ant-chapter {margin-bottom:3rem;}
+}

@@ -38,3 +38,8 @@
 @media (prefers-reduced-motion:reduce) {
     .gerrys-reel-card { transition:none; }
 }
+
+@media (max-width:900px) {
+    .gerrys-reel-caption h3 {font-size:1.25rem;line-height:1.2;}
+    .gerrys-reel-caption p {font-size:1rem;line-height:1.55;}
+}
