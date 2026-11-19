@@ -1140,7 +1140,7 @@ footer span{
         z-index:3000;
         right:var(--menu-right);
         bottom:var(--menu-bottom);
-        translate:var(--menu-drag-x,0px) 0;
+        translate:var(--menu-drag-x,0px) var(--menu-lift,0px);
         display:inline-flex;
         align-items:center;
         justify-content:center;
@@ -1204,6 +1204,18 @@ footer span{
     }
 
     .mobile-header.is-left .mobile-menu-panel {transform-origin:bottom left;}
+
+    .mobile-header.is-clear-of-player .mobile-menu-toggle {
+        --menu-lift:calc(var(--menu-bottom) + var(--menu-size) + max(1rem,env(safe-area-inset-top)) - 100dvh);
+    }
+
+    .mobile-header.is-clear-of-player .mobile-menu-panel {
+        top:calc(max(1rem,env(safe-area-inset-top)) + var(--menu-size) + .75rem);
+        bottom:auto;
+        transform-origin:top right;
+    }
+
+    .mobile-header.is-clear-of-player.is-left .mobile-menu-panel {transform-origin:top left;}
 
     .mobile-menu-hint {
         padding:.65rem .75rem;
@@ -2158,7 +2170,7 @@ body[data-page="home"] .featured-projects .project-card > img[src="images/ant-ki
     .is-gallery .projects-stage {grid-template-columns:minmax(0,1fr);}
     .is-gallery #btn-center {justify-self:start;}
 }
-/* Keep native YouTube controls usable when 16:9 would be too short. */
+/* Keep embedded YouTube controls above the minimum player height on mobile. */
 .showreel-video:has(> iframe[src*="youtube"]),
 .video-wrapper:has(> iframe[src*="youtube"]) {
     position:relative;
@@ -2186,7 +2198,14 @@ body[data-page="home"] .featured-projects .project-card > img[src="images/ant-ki
     margin-bottom:0;
 }
 
-@media (max-width:900px) {
+@media (max-width:1024px) {
+    .showreel:has(iframe[src*="youtube"]),
+    .showreel-video:has(> iframe[src*="youtube"]) {
+        opacity:1 !important;
+        filter:none !important;
+        transform:none !important;
+    }
+
     .showreel-video:has(> iframe[src*="youtube"]),
     .video-wrapper:has(> iframe[src*="youtube"]) {
         min-height:202px;

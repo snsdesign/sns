@@ -253,6 +253,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     const mobileViewport = matchMedia('(max-width:1024px)');
+    const players = [...document.querySelectorAll('iframe[src*="youtube.com/embed/"], iframe[src*="youtube-nocookie.com/embed/"]')];
+    if (players.length) {
+        function avoidPlayers() {
+            // Layout offsets retain the corner position while the button is visually lifted.
+            const left = toggle.offsetLeft, right = left + toggle.offsetWidth;
+            const top = toggle.offsetTop, bottom = top + toggle.offsetHeight;
+            const covered = mobileViewport.matches && players.some(player => {
+                const rect = player.getBoundingClientRect();
+                return rect.left < right && rect.right > left && rect.top < bottom && rect.bottom > top;
+            });
+            bar.classList.toggle("is-clear-of-player", covered);
+        }
+
+        window.addEventListener("scroll", avoidPlayers, {passive: true});
+        window.addEventListener("resize", avoidPlayers);
+        window.addEventListener("load", avoidPlayers, {once: true});
+        window.visualViewport?.addEventListener("resize", avoidPlayers);
+        const playerLayout = new ResizeObserver(avoidPlayers);
+        playerLayout.observe(document.body);
+        players.forEach(player => playerLayout.observe(player));
+        const docking = new MutationObserver(avoidPlayers);
+        docking.observe(swapSide, {childList: true});
+        avoidPlayers();
+    }
     mobileViewport.addEventListener('change', () => setMenu(false));
 
 });
